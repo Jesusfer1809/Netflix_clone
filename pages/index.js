@@ -1,107 +1,53 @@
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+
 import Head from "next/head";
-import alpes from "../public/alpes.jpg";
-import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
-import { Animated } from "react-animated-css";
+import Navbar from "../components/Navbar";
+import Banner from "../components/Banner";
+import Row from "../components/Row";
 
-export default function Home() {
-  const [hiding, setHiding] = useState(true);
-  const [contentHeight, setContentHeight] = useState("0px");
+import requests from "../helpers/requests";
 
-  const content = useRef(null);
+const Home = () => {
+  const [user, setUser] = useState(null);
+  const router = useRouter();
 
-  const [contentWidth, setContentWidth] = useState(null);
-
-  useEffect(async () => {
-    const xd = async () => {
-      await setContentWidth(content.current.scrollWidth);
-    };
-
-    await xd();
-    console.log(contentWidth);
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
   }, []);
 
-  const toggleShowContent = () => {
-    setHiding(!hiding);
-    setContentHeight(hiding ? "0px" : `${content.current.scrollHeight}px`);
-    console.log(content.current.scrollHeight);
-  };
-
   return (
-    <div className="container mx-auto mt-5">
-      <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-        <div className="flex items-center flex-shrink-0 text-white mr-6">
-          <svg
-            className="fill-current h-8 w-8 mr-2"
-            width="54"
-            height="54"
-            viewBox="0 0 54 54"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
-          </svg>
-          <span className="font-semibold text-xl tracking-tight">
-            Tailwind CSS
-          </span>
-        </div>
-        <div className="block lg:hidden">
-          <button
-            id="boton"
-            className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
-            onClick={toggleShowContent}
-          >
-            <svg
-              className="fill-current h-3 w-3"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            </svg>
-          </button>
-        </div>
+    <div className=" relative pb-8 bg-black bg-opacity-100">
+      <Navbar />
 
-        <div
-          id="menu"
-          ref={content}
-          className={`w-full block flex-grow overflow-hidden max-h-${
-            hiding ? "0" : "44"
-          }  transition-all duration-500 lg:flex lg:items-center lg:w-auto lg:max-h-44  `}
-        >
-          <div className="text-sm lg:flex-grow">
-            <a
-              href="#responsive-header"
-              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            >
-              Docs
-            </a>
-            <a
-              href="#responsive-header"
-              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            >
-              Examples
-            </a>
-            <a
-              href="#responsive-header"
-              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-            >
-              Blog
-            </a>
-          </div>
-          <div>
-            <a
-              href="#"
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-            >
-              Download
-            </a>
-          </div>
-        </div>
-      </nav>
+      <Banner />
+
+      <Row
+        title="NETFLIX ORIGINALS"
+        fetchURL={requests.fetchNetflixOriginals}
+        isLargeRow
+      />
+
+      <Row title="Trending Now" fetchURL={requests.fetchTrending} />
+
+      <Row title="Top Rated" fetchURL={requests.fetchTrending} />
+
+      <Row title="Action Movies" fetchURL={requests.fetchActionMovies} />
+
+      <Row title="Comedy Movies" fetchURL={requests.fetchComedyMovies} />
+
+      <Row title="Horror Movies" fetchURL={requests.fetchHorrorMovies} />
+
+      <Row title="Romance Movies" fetchURL={requests.fetchRomanceMovies} />
+
+      <Row title="Documentaries" fetchURL={requests.fetchDocumentaries} />
     </div>
   );
-}
+};
 
+export default Home;
 /*
 <div className="container w-full  sm:w-1/2 lg:w-1/3  shadow-slate-500 shadow-md rounded-md ">
         <Image src={alpes} />
