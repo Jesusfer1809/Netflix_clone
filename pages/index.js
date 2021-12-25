@@ -7,43 +7,78 @@ import Banner from "../components/Banner";
 import Row from "../components/Row";
 
 import requests from "../helpers/requests";
+import { auth } from "../helpers/firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from "../store/actions/userAction";
 
 const Home = () => {
-  const [user, setUser] = useState(null);
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const router = useRouter();
+
+  useEffect(() => {
+    const unsuscribe = auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        dispatch(
+          updateUser({
+            uid: userAuth.uid,
+            email: userAuth.email,
+          })
+        );
+      } else {
+        dispatch(updateUser(null));
+      }
+    });
+
+    return unsuscribe;
+  }, []);
 
   useEffect(() => {
     if (!user) {
       router.push("/login");
     }
-  }, []);
+  }, [user]);
+
+  if (user) {
+    return (
+      <div className=" relative pb-8 bg-black bg-opacity-100">
+        <Navbar />
+
+        <Banner />
+
+        <Row
+          title="NETFLIX ORIGINALS"
+          fetchURL={requests.fetchNetflixOriginals}
+          isLargeRow
+        />
+
+        <Row title="Trending Now" fetchURL={requests.fetchTrending} />
+
+        <Row title="Top Rated" fetchURL={requests.fetchTrending} />
+
+        <Row title="Action Movies" fetchURL={requests.fetchActionMovies} />
+
+        <Row title="Comedy Movies" fetchURL={requests.fetchComedyMovies} />
+
+        <Row title="Horror Movies" fetchURL={requests.fetchHorrorMovies} />
+
+        <Row title="Romance Movies" fetchURL={requests.fetchRomanceMovies} />
+
+        <Row title="Documentaries" fetchURL={requests.fetchDocumentaries} />
+      </div>
+    );
+  }
 
   return (
-    <div className=" relative pb-8 bg-black bg-opacity-100">
-      <Navbar />
-
-      <Banner />
-
-      <Row
-        title="NETFLIX ORIGINALS"
-        fetchURL={requests.fetchNetflixOriginals}
-        isLargeRow
-      />
-
-      <Row title="Trending Now" fetchURL={requests.fetchTrending} />
-
-      <Row title="Top Rated" fetchURL={requests.fetchTrending} />
-
-      <Row title="Action Movies" fetchURL={requests.fetchActionMovies} />
-
-      <Row title="Comedy Movies" fetchURL={requests.fetchComedyMovies} />
-
-      <Row title="Horror Movies" fetchURL={requests.fetchHorrorMovies} />
-
-      <Row title="Romance Movies" fetchURL={requests.fetchRomanceMovies} />
-
-      <Row title="Documentaries" fetchURL={requests.fetchDocumentaries} />
-    </div>
+    <div
+      className="h-screen relative"
+      style={{
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.7) 30%,rgba(0,0,0,0.6) 60%,rgba(0,0,0,0.7) 100%), url(https://assets.nflxext.com/ffe/siteui/vlv3/3679b63e-5d92-47a1-96ec-b26d86fc0f0a/d78af455-3db4-46ba-bf30-626909f337ea/PE-es-20211213-popsignuptwoweeks-perspective_alpha_website_medium.jpg)`,
+      }}
+    ></div>
   );
 };
 

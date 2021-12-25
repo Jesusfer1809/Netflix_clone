@@ -1,6 +1,28 @@
 import React from "react";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchposts } from "../store/actions/postAction";
+
+import { useRouter } from "next/router";
 
 function login() {
+  const { user } = useSelector((state) => state.user);
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(fetchposts());
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user]);
+
   return (
     <div
       className="h-screen relative"
@@ -11,16 +33,20 @@ function login() {
       }}
     >
       <div className="flex justify-between items-center px-10">
-        <img src="/logo.png" className=" h-32 object-cover " />
+        <Link href="/">
+          <img src="/logo.png" className=" h-20 object-cover cursor-pointer " />
+        </Link>
 
-        <button
-          className=" px-4 py-2  font-semibold text-white rounded-sm"
-          style={{
-            backgroundColor: "#DE0611",
-          }}
-        >
-          Sign In
-        </button>
+        <Link href="/signin">
+          <button
+            className=" px-4 py-2  font-semibold text-white rounded-sm"
+            style={{
+              backgroundColor: "#DE0611",
+            }}
+          >
+            Sign In
+          </button>
+        </Link>
       </div>
 
       <div className="text-white w-full px-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  text-center ">
@@ -40,17 +66,14 @@ function login() {
           <input
             type="email"
             placeholder="Email address"
-            className=" w-1/3 py-3 px-3 outline-none text-slate-900"
+            className=" w-2/5 py-4 px-3 outline-none text-slate-900 text-lg"
           />
 
-          <button
-            className=" px-6 py-3  font-semibold text-white"
-            style={{
-              backgroundColor: "#DE0611",
-            }}
-          >
-            Sign In
-          </button>
+          <Link href="/signin">
+            <button className=" px-8 py-4  font-semibold text-white text-lg bg-[#de0611] hover:bg-[#f40612]">
+              Sign In
+            </button>
+          </Link>
         </form>
       </div>
     </div>

@@ -22,8 +22,6 @@ export default function Banner() {
     fetchData();
   }, []);
 
-  console.log(movie);
-
   return (
     <div
       className=" relative w-full h-screen"

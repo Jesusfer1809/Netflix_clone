@@ -16,8 +16,6 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
     fetchMovies();
   }, [fetchURL]);
 
-  console.log(movies);
-
   return (
     <div className="ml-8 my-14">
       <h2 className="text-white text-2xl mb-4">{title}</h2>
