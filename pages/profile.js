@@ -2,21 +2,33 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { auth } from "../helpers/firebase";
 import { useRouter } from "next/router";
+import { updateUser } from "../store/actions/userAction";
 
 import { signOut } from "firebase/auth";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 function profile() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
 
+  useEffect(() => {
+    const unsuscribe = auth.onAuthStateChanged((userAuth) => {
+      if (!userAuth) {
+        dispatch(updateUser(null));
+
+        router.push("/login");
+      }
+    });
+
+    return unsuscribe;
+  }, []);
+
   const logOut = (e) => {
     e.preventDefault();
-    signOut(auth).then(() => {
-      router.push("/login");
-    });
+    signOut(auth);
   };
 
   return (
@@ -33,7 +45,7 @@ function profile() {
 
           <div className=" col-span-5 h-auto">
             <span className="block bg-gray-400 px-4 py-2 mb-4">
-              jesusf@gmail.com
+              {user?.email}
             </span>
 
             <h2 className="text-xl border-b-2 pb-1 border-opacity-5 border-white">

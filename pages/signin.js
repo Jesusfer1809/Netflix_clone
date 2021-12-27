@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
 import {
   getAuth,
@@ -16,8 +16,26 @@ import Link from "next/link";
 function signin() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const dispatch = useDispatch();
 
   const router = useRouter();
+
+  useEffect(() => {
+    const unsuscribe = auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        dispatch(
+          updateUser({
+            uid: userAuth.uid,
+            email: userAuth.email,
+          })
+        );
+
+        router.push("/");
+      }
+    });
+
+    return unsuscribe;
+  }, []);
 
   const register = (e) => {
     e.preventDefault();
@@ -41,9 +59,7 @@ function signin() {
       emailRef.current.value,
       passwordRef.current.value
     )
-      .then((authUser) => {
-        router.push("/");
-      })
+      .then((authUser) => {})
       .catch((error) => {
         alert(error.message);
       });

@@ -18,23 +18,6 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const unsuscribe = auth.onAuthStateChanged((userAuth) => {
-      if (userAuth) {
-        dispatch(
-          updateUser({
-            uid: userAuth.uid,
-            email: userAuth.email,
-          })
-        );
-      } else {
-        dispatch(updateUser(null));
-      }
-    });
-
-    return unsuscribe;
-  }, []);
-
-  useEffect(() => {
     if (!user) {
       router.push("/login");
     }

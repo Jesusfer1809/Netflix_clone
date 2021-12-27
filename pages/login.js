@@ -17,12 +17,6 @@ function login() {
     dispatch(fetchposts());
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [user]);
-
   return (
     <div
       className="h-screen relative"
