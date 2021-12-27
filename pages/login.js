@@ -50,7 +50,9 @@ function login() {
       </div>
 
       <div className="text-white w-full px-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  text-center ">
-        <h1 className=" text-5xl block mb-8 font-bold">UWU</h1>
+        <h1 className=" text-5xl block mb-8 font-bold">
+          Unlimited movies, TV shows, and more.
+        </h1>
 
         <h2 className=" text-3xl block mb-4 font-semibold">
           Watch anywhere. Cancel anytime.
