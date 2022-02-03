@@ -5,6 +5,7 @@ import axios from "../helpers/axios.js";
 
 export default function Banner() {
   const [movie, setMovie] = useState([]);
+  console.log(movie);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,21 +33,21 @@ export default function Banner() {
         position: "relative",
       }}
     >
-      <div className=" absolute top-1/2 left-1/4 -translate-x-1/4 lg:-translate-x-1/2 -translate-y-1/2 w-full px-8 sm:w-2/3 sm:px-0 lg:w-2/5 ">
-        <span className=" text-white inline-block text-6xl font-semibold">
+      <div className=" absolute top-1/2 left-1/4 -translate-x-1/4 lg:-translate-x-1/2 -translate-y-1/2 w-full px-4 md:px-8 sm:w-2/3  lg:w-2/5 ">
+        <span className=" text-white inline-block text-5xl md:text-6xl font-semibold">
           {movie?.name || movie?.original_name}
         </span>
 
-        <div className=" mt-8 flex justify-start">
-          <button className=" text-white text-xl bg-slate-700 bg-opacity-60 px-4 py-1 shadow-md shadow-slate-900 rounded-sm ml-12">
+        <div className=" mt-8 flex justify-start space-x-12">
+          <button className=" text-white text-xl bg-slate-700 bg-opacity-60 px-4 py-1 shadow-md shadow-slate-900 rounded-sm ">
             Play
           </button>
-          <button className=" text-white text-xl bg-slate-700 bg-opacity-60 px-4 py-1 shadow-md shadow-slate-900 rounded-sm ml-12">
+          <button className=" text-white text-xl bg-slate-700 bg-opacity-60 px-4 py-1 shadow-md shadow-slate-900 rounded-sm">
             My List
           </button>
         </div>
 
-        <p className="text-white inline-block mt-8 text-md">
+        <p className="text-white font-medium inline-block mt-8 text-md line-clamp-3">
           {movie?.overview}
         </p>
       </div>

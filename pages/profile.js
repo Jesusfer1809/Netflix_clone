@@ -32,18 +32,23 @@ function profile() {
   };
 
   return (
-    <div className="h-screen relative bg-slate-900">
-      <Navbar />
+    <div className="flex flex-col justify-center relative h-[130vh] bg-slate-900">
+      <div className="absolute top-0 left-0  w-full">
+        <Navbar />
+      </div>
 
-      <div className="text-white w-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+      <div className="text-white p-8 sm:p-0 w-full sm:w-2/3 lg:w-1/2 h-max  self-center   ">
         <h1 className="block text-4xl font-medium border-b-2  border-opacity-5 border-white pb-1 mb-8">
           Edit Profile
         </h1>
 
         <div className="grid  grid-cols-6  gap-x-8">
-          <img src="/cuenta.png" className="w-full cursor-pointer" />
+          <img
+            src="/cuenta.png"
+            className=" hidden sm:inline w-full cursor-pointer"
+          />
 
-          <div className=" col-span-5 h-auto">
+          <div className=" col-span-6 sm:col-span-5 h-auto">
             <span className="block bg-gray-400 px-4 py-2 mb-4">
               {user?.email}
             </span>
@@ -53,7 +58,7 @@ function profile() {
             </h2>
           </div>
 
-          <div className=" col-start-2 col-span-5 pt-4">
+          <div className=" col-start-1 sm:col-start-2 col-span-6 sm:col-span-5 pt-4">
             <span>Renewal date: 04/03/21</span>
 
             <div className="flex justify-between px-4 py-2 my-4">

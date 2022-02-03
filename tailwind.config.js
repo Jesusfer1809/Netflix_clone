@@ -962,5 +962,5 @@ module.exports = {
     "active",
     "disabled",
   ],
-  plugins: [require("tailwind-scrollbar")],
+  plugins: [require("tailwind-scrollbar"), require("@tailwindcss/line-clamp")],
 };

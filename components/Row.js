@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "../helpers/axios.js";
+import Carousel from "react-elastic-carousel";
+
+const breakPoints = [
+  { width: 1, itemsToShow: 1, itemsToScroll: 1 },
+  { width: 400, itemsToShow: 2, itemsToScroll: 2 },
+  { width: 550, itemsToShow: 3, itemsToScroll: 3 },
+  { width: 670, itemsToShow: 4, itemsToScroll: 4 },
+  { width: 768, itemsToShow: 5, itemsToScroll: 5 },
+];
 
 export default function Row({ title, fetchURL, isLargeRow = false }) {
   const [movies, setMovies] = useState();
+
   const baseURL = "https://image.tmdb.org/t/p/original/";
 
   useEffect(() => {
@@ -17,15 +27,28 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
   }, [fetchURL]);
 
   return (
-    <div className="ml-8 my-14">
-      <h2 className="text-white text-2xl mb-4">{title}</h2>
+    <div className=" mx-2 md:mx-8 my-14">
+      <h2 className="text-white text-2xl mb-6">{title}</h2>
 
-      <div className="flex overflow-y-hidden overflow-x-scroll scrollbar scrollbar-none ">
+      <Carousel
+        breakPoints={breakPoints}
+        pagination={false}
+        renderArrow={({ type, onClick }) => (
+          <div
+            onClick={onClick}
+            className=" bg-opacity-50 bg-gray-900  w-8 text-xl text-white flex items-center justify-center cursor-pointer selection:bg-transparent"
+          >
+            {type === "PREV" ? "<-" : "->"}
+          </div>
+        )}
+        enableSwipe={false}
+      >
         {movies?.map(
           (movie) =>
             ((isLargeRow && movie.poster_path) ||
               (!isLargeRow && movie.backdrop_path)) && (
               <img
+                loading="lazy"
                 src={`${baseURL}${
                   isLargeRow ? movie.poster_path : movie.backdrop_path
                 }`}
@@ -33,11 +56,11 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
                 key={movie.id}
                 className={`${
                   isLargeRow ? "max-h-64" : "max-h-36"
-                } mr-4 cursor-pointer transition-all hover:scale-105 object-contain  `}
+                } mr-4  cursor-pointer transition-all hover:scale-105 object-contain  `}
               />
             )
         )}
-      </div>
+      </Carousel>
     </div>
   );
 }
