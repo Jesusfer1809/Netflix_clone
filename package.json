@@ -10,7 +10,7 @@
     "axios": "^0.24.0",
     "core-js": "^3.20.3",
     "firebase": "^9.6.1",
-    "next": "latest",
+    "next": "^12.3.3",
     "next-redux-wrapper": "^7.0.5",
     "react": "^17.0.2",
     "react-animated-css": "^1.2.1",

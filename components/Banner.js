@@ -17,6 +17,8 @@ export default function Banner() {
         req.data.results[Math.floor(Math.random() * req.data.results.length)]
       );
 
+      console.log("originals", req.data);
+
       return req;
     };
 

@@ -41,7 +41,7 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
             {type === "PREV" ? "<-" : "->"}
           </div>
         )}
-        enableSwipe={false}
+        enableSwipe={true}
       >
         {movies?.map(
           (movie) =>
