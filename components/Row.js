@@ -1,17 +1,41 @@
 import React, { useState, useEffect } from "react";
 import axios from "../helpers/axios.js";
 import Carousel from "react-elastic-carousel";
+import Image from "next/image.js";
 
-const breakPoints = [
-  { width: 1, itemsToShow: 1, itemsToScroll: 1 },
-  { width: 400, itemsToShow: 2, itemsToScroll: 2 },
-  { width: 550, itemsToShow: 3, itemsToScroll: 3 },
-  { width: 670, itemsToShow: 4, itemsToScroll: 4 },
-  { width: 768, itemsToShow: 5, itemsToScroll: 5 },
-];
+import { motion } from "framer-motion";
 
 export default function Row({ title, fetchURL, isLargeRow = false }) {
   const [movies, setMovies] = useState();
+
+  const breakPoints = [
+    { width: 1, itemsToShow: 1, itemsToScroll: 1 },
+    {
+      width: 350,
+      itemsToShow: isLargeRow ? 2 : 1,
+      itemsToScroll: isLargeRow ? 2 : 1,
+    },
+    {
+      width: 550,
+      itemsToShow: isLargeRow ? 3 : 2,
+      itemsToScroll: isLargeRow ? 3 : 2,
+    },
+    {
+      width: 650,
+      itemsToShow: isLargeRow ? 4 : 3,
+      itemsToScroll: isLargeRow ? 4 : 3,
+    },
+    {
+      width: 900,
+      itemsToShow: isLargeRow ? 5 : 4,
+      itemsToScroll: isLargeRow ? 5 : 4,
+    },
+    {
+      width: 1100,
+      itemsToShow: isLargeRow ? 6 : 5,
+      itemsToScroll: isLargeRow ? 6 : 5,
+    },
+  ];
 
   const baseURL = "https://image.tmdb.org/t/p/original/";
 
@@ -36,7 +60,7 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
         renderArrow={({ type, onClick }) => (
           <div
             onClick={onClick}
-            className=" bg-opacity-50 bg-gray-900  w-8 text-xl text-white flex items-center justify-center cursor-pointer selection:bg-transparent"
+            className=" bg-opacity-50 bg-gray-900  w-10 h-10 self-center rounded-full  text-xl text-white flex items-center justify-center cursor-pointer border border-white"
           >
             {type === "PREV" ? "<-" : "->"}
           </div>
@@ -47,17 +71,20 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
           (movie) =>
             ((isLargeRow && movie.poster_path) ||
               (!isLargeRow && movie.backdrop_path)) && (
-              <img
-                loading="lazy"
-                src={`${baseURL}${
-                  isLargeRow ? movie.poster_path : movie.backdrop_path
-                }`}
-                alt={movie.name}
-                key={movie.id}
-                className={`${
-                  isLargeRow ? "max-h-64" : "max-h-36"
-                } mr-4  cursor-pointer transition-all hover:scale-105 object-contain  `}
-              />
+              <motion.div
+                className={` ${
+                  isLargeRow
+                    ? " h-64 w-full max-w-[12rem]"
+                    : "h-36 w-full max-w-[18rem] "
+                }  cursor-pointer relative  mr-4 rounded-sm overflow-hidden `}
+              >
+                <Image
+                  src={`${baseURL}${
+                    isLargeRow ? movie.poster_path : movie.backdrop_path
+                  }`}
+                  layout="fill"
+                />
+              </motion.div>
             )
         )}
       </Carousel>

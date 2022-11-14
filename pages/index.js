@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
 import Head from "next/head";
@@ -11,11 +11,17 @@ import { auth } from "../helpers/firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../store/actions/userAction";
 
+import { motion, useScroll, useTransform } from "framer-motion";
+
 const Home = () => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const router = useRouter();
+
+  const carouselRef = useRef(null);
+
+  const { scrollY } = useScroll();
 
   useEffect(() => {
     if (!user) {
@@ -25,31 +31,37 @@ const Home = () => {
 
   if (user) {
     return (
-      <div className=" relative pb-8 bg-black bg-opacity-100">
+      <motion.div className={`relative pb-8 bg-opacity-100 bg-neutral-900`}>
+        <Head>
+          <title>Netflix Clone</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <Navbar />
 
         <Banner />
 
-        <Row
-          title="NETFLIX ORIGINALS"
-          fetchURL={requests.fetchNetflixOriginals}
-          isLargeRow
-        />
+        <div className="-mt-40 z-20 relative">
+          <Row
+            title="NETFLIX ORIGINALS"
+            fetchURL={requests.fetchNetflixOriginals}
+            isLargeRow
+          />
 
-        <Row title="Trending Now" fetchURL={requests.fetchTrending} />
+          <Row title="Trending Now" fetchURL={requests.fetchTrending} />
 
-        <Row title="Top Rated" fetchURL={requests.fetchTrending} />
+          <Row title="Top Rated" fetchURL={requests.fetchTrending} />
 
-        <Row title="Action Movies" fetchURL={requests.fetchActionMovies} />
+          <Row title="Action Movies" fetchURL={requests.fetchActionMovies} />
 
-        <Row title="Comedy Movies" fetchURL={requests.fetchComedyMovies} />
+          <Row title="Comedy Movies" fetchURL={requests.fetchComedyMovies} />
 
-        <Row title="Horror Movies" fetchURL={requests.fetchHorrorMovies} />
+          <Row title="Horror Movies" fetchURL={requests.fetchHorrorMovies} />
 
-        <Row title="Romance Movies" fetchURL={requests.fetchRomanceMovies} />
+          <Row title="Romance Movies" fetchURL={requests.fetchRomanceMovies} />
 
-        <Row title="Documentaries" fetchURL={requests.fetchDocumentaries} />
-      </div>
+          <Row title="Documentaries" fetchURL={requests.fetchDocumentaries} />
+        </div>
+      </motion.div>
     );
   }
 
