@@ -6,25 +6,21 @@
     "start": "next start"
   },
   "dependencies": {
+    "@next-auth/mongodb-adapter": "^1.1.1",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.3.1",
     "axios": "^0.27.2",
     "core-js": "^3.20.3",
-    "firebase": "^9.6.1",
     "framer-motion": "^7.6.6",
+    "mongodb": "^4.11.0",
     "next": "^12.3.3",
-    "next-redux-wrapper": "^7.0.5",
+    "next-auth": "^4.16.4",
     "react": "^18.2.0",
     "react-animated-css": "^1.2.1",
     "react-dom": "^18.2.0",
     "react-elastic-carousel": "^0.11.5",
     "react-icons": "^4.6.0",
-    "react-redux": "^7.2.6",
     "react-slick": "^0.29.0",
-    "redux": "^4.1.2",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.4.1",
-    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

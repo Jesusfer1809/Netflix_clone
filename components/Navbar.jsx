@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 
-import logo from "../public/logo.png";
-import user from "../public/cuenta.png";
-
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
   const { scrollYProgress, scrollY } = useScroll();
+  const { data: session } = useSession();
   const color = useTransform(
     scrollY,
     [0, 500],
@@ -30,13 +29,8 @@ export default function Navbar() {
       </Link>
 
       <Link href="/profile">
-        <div className="relative h-10 w-10 md:h-12 md:w-12 cursor-pointer">
-          <Image
-            src="/cuenta.png"
-            width={300}
-            height={300}
-            layout="responsive"
-          />
+        <div className="relative h-10 w-10 md:h-12 md:w-12 cursor-pointer rounded-sm overflow-hidden">
+          <Image src={session.user.image} layout="fill" />
         </div>
       </Link>
     </motion.div>

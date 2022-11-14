@@ -36,7 +36,7 @@ export default function Banner() {
       }}
     >
       <div className="  w-full px-4 md:px-8 sm:w-2/3  lg:w-1/2 ">
-        <span className=" text-white inline-block text-4xl sm:text-5xl md:text-6xl font-semibold">
+        <span className=" text-white inline-block text-4xl sm:text-5xl lg:text-6xl font-semibold">
           {movie?.name || movie?.original_name}
         </span>
 
@@ -47,7 +47,7 @@ export default function Banner() {
           </button>
           <button className="bg-gray-500 bg-opacity-80 text-white font-medium text-xl px-8 py-1 sm:py-2 md:px-10 shadow-sm shadow-slate-900 rounded-sm flex items-center space-x-2">
             <AiOutlineInfoCircle />
-            <span>My List</span>
+            <span>More info</span>
           </button>
         </div>
 
