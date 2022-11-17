@@ -36,7 +36,7 @@ function signin({ providers, csrfToken }) {
       </div>
 
       <div className="text-white py-12 px-4 flex items-center justify-center ">
-        <div className="w-full sm:w-4/5 md:w-3/5 lg:w-1/2 bg-black/70 text-center p-4">
+        <div className="w-full sm:w-4/5 md:w-3/5 lg:w-1/2 bg-black/70 text-center p-4 md:p-6 lg:p-8">
           <h1 className=" block text-left text-2xl  md:text-3xl font-semibold mb-10">
             Sign In
           </h1>
