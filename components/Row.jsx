@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../helpers/axios.js";
-import Carousel from "react-elastic-carousel";
+
 import Image from "next/image.js";
 
 import Slider from "react-slick";
@@ -110,7 +110,9 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
 
   return (
     <div className=" mx-8 lg:mx-12">
-      <h2 className="text-white text-2xl mb-6">{title}</h2>
+      <h2 className="text-white text-xl font-medium mb-6 -ml-4 md:-ml-2">
+        {title}
+      </h2>
 
       <Slider {...settings}>
         {movies?.map(
