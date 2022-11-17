@@ -3,39 +3,96 @@ import axios from "../helpers/axios.js";
 import Carousel from "react-elastic-carousel";
 import Image from "next/image.js";
 
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import { motion } from "framer-motion";
+import MoviePreview from "./MoviePreview.jsx";
 
 export default function Row({ title, fetchURL, isLargeRow = false }) {
   const [movies, setMovies] = useState();
 
-  const breakPoints = [
-    { width: 1, itemsToShow: 1, itemsToScroll: 1 },
-    {
-      width: 350,
-      itemsToShow: isLargeRow ? 2 : 1,
-      itemsToScroll: isLargeRow ? 2 : 1,
-    },
-    {
-      width: 550,
-      itemsToShow: isLargeRow ? 3 : 2,
-      itemsToScroll: isLargeRow ? 3 : 2,
-    },
-    {
-      width: 650,
-      itemsToShow: isLargeRow ? 4 : 3,
-      itemsToScroll: isLargeRow ? 4 : 3,
-    },
-    {
-      width: 900,
-      itemsToShow: isLargeRow ? 5 : 4,
-      itemsToScroll: isLargeRow ? 5 : 4,
-    },
-    {
-      width: 1100,
-      itemsToShow: isLargeRow ? 6 : 5,
-      itemsToScroll: isLargeRow ? 6 : 5,
-    },
-  ];
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: isLargeRow ? 6 : 4,
+    slidesToScroll: isLargeRow ? 5 : 3,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: isLargeRow ? 6 : 3,
+          slidesToScroll: isLargeRow ? 4 : 2,
+          dots: false,
+          infinite: true,
+          speed: 500,
+        },
+      },
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: isLargeRow ? 5 : 3,
+          slidesToScroll: isLargeRow ? 3 : 2,
+          dots: false,
+          infinite: true,
+          speed: 500,
+        },
+      },
+      {
+        breakpoint: 880,
+        settings: {
+          slidesToShow: isLargeRow ? 5 : 2,
+          slidesToScroll: isLargeRow ? 3 : 1,
+          dots: false,
+          infinite: true,
+          speed: 500,
+        },
+      },
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: isLargeRow ? 4 : 2,
+          slidesToScroll: isLargeRow ? 2 : 1,
+          dots: false,
+          infinite: true,
+          speed: 500,
+        },
+      },
+      {
+        breakpoint: 630,
+        settings: {
+          slidesToShow: isLargeRow ? 3 : 1,
+          slidesToScroll: isLargeRow ? 1 : 1,
+          dots: false,
+          infinite: true,
+          speed: 500,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: isLargeRow ? 2 : 1,
+          slidesToScroll: isLargeRow ? 1 : 1,
+          dots: false,
+          infinite: true,
+          speed: 500,
+        },
+      },
+      {
+        breakpoint: 470,
+        settings: {
+          slidesToShow: isLargeRow ? 1 : 1,
+          slidesToScroll: isLargeRow ? 1 : 1,
+          dots: false,
+          infinite: true,
+          speed: 500,
+        },
+      },
+    ],
+  };
 
   const baseURL = "https://image.tmdb.org/t/p/original/";
 
@@ -48,46 +105,22 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
       return req;
     };
     fetchMovies();
+    console.log(movies);
   }, [fetchURL]);
 
   return (
-    <div className=" mx-2 md:mx-8 my-14">
+    <div className=" mx-8 lg:mx-12">
       <h2 className="text-white text-2xl mb-6">{title}</h2>
 
-      <Carousel
-        breakPoints={breakPoints}
-        pagination={false}
-        renderArrow={({ type, onClick }) => (
-          <div
-            onClick={onClick}
-            className=" bg-opacity-50 bg-gray-900  w-10 h-10 self-center rounded-full  text-xl text-white flex items-center justify-center cursor-pointer border border-white"
-          >
-            {type === "PREV" ? "<-" : "->"}
-          </div>
-        )}
-        enableSwipe={true}
-      >
+      <Slider {...settings}>
         {movies?.map(
           (movie) =>
             ((isLargeRow && movie.poster_path) ||
               (!isLargeRow && movie.backdrop_path)) && (
-              <motion.div
-                className={` ${
-                  isLargeRow
-                    ? " h-64 w-full max-w-[12rem]"
-                    : "h-36 w-full max-w-[18rem] "
-                }  cursor-pointer relative  mr-4 rounded-sm overflow-hidden `}
-              >
-                <Image
-                  src={`${baseURL}${
-                    isLargeRow ? movie.poster_path : movie.backdrop_path
-                  }`}
-                  layout="fill"
-                />
-              </motion.div>
+              <MoviePreview isLargeRow={isLargeRow} movie={movie} />
             )
         )}
-      </Carousel>
+      </Slider>
     </div>
   );
 }

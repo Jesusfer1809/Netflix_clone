@@ -27,12 +27,11 @@ export default function Banner() {
 
   return (
     <div
-      className=" relative w-full h-screen z-10 flex items-center"
+      className="  w-full h-screen  flex items-center"
       style={{
         backgroundSize: "cover",
         backgroundPosition: "center top",
         backgroundImage: `linear-gradient(rgba(23,23,23,0.3) 50%,rgba(23,23,23,0.5) 70%,rgba(23,23,23,8) 100%), url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`,
-        position: "relative",
       }}
     >
       <div className="  w-full px-4 md:px-8 sm:w-2/3  lg:w-1/2 ">

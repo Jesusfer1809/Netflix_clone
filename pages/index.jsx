@@ -14,7 +14,9 @@ const Home = () => {
 
   return (
     session && (
-      <div className={`relative pb-8 bg-opacity-100 bg-neutral-900`}>
+      <div
+        className={`relative pb-8 bg-opacity-100 bg-neutral-900 overflow-hidden`}
+      >
         <Head>
           <title>Netflix Clone</title>
           <link rel="icon" href="/favicon.ico" />
@@ -23,7 +25,7 @@ const Home = () => {
 
         <Banner />
 
-        <div className="-mt-40 z-20 relative">
+        <div className="-mt-20 pb-40  flex flex-col space-y-20">
           <Row
             title="NETFLIX ORIGINALS"
             fetchURL={requests.fetchNetflixOriginals}
