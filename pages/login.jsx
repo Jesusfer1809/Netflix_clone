@@ -15,7 +15,7 @@ function login() {
       }}
     >
       <Head>
-        <title>Netflix Clone</title>
+        <title>Netflix Clone </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
