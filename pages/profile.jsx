@@ -5,9 +5,17 @@ import { useSession, signOut } from "next-auth/react";
 
 import Head from "next/head";
 import Image from "next/image";
+import axios from "axios";
+import Router, { useRouter } from "next/router";
 
 function profile() {
   const { data: session } = useSession();
+  const router = useRouter();
+
+  const handleImage = async () => {
+    const res = await axios.patch("http://localhost:3000/api/users");
+    router.reload();
+  };
 
   return (
     session && (
@@ -26,7 +34,10 @@ function profile() {
           </h1>
 
           <div className="grid  grid-cols-6  gap-x-8">
-            <div className="w-full h-full relative rounded-sm overflow-hidden ">
+            <div
+              className="w-full h-full relative rounded-sm overflow-hidden "
+              onClick={handleImage}
+            >
               <Image src={session.user.image} layout="fill" />
             </div>
 
