@@ -24,5 +24,11 @@ export const authOptions = {
       await newUser.save();
     },
   },
+  callbacks: {
+    async session({ session, token, user }) {
+      session.user.planStatus = user.planStatus; // Add role value to user object so it is passed along with session
+      return session;
+    },
+  },
 };
 export default NextAuth(authOptions);

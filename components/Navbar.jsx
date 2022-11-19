@@ -18,21 +18,28 @@ export default function Navbar() {
   }, [scrollYProgress]);
 
   return (
-    <motion.div
-      style={{ backgroundColor: color }}
-      className={` flex justify-between fixed items-center px-4 sm:px-10 w-full z-50  `}
-    >
-      <Link href="/">
-        <div className="relative w-24 sm:w-28 md:w-32 cursor-pointer">
-          <Image src="/logo.png" width={300} height={200} layout="responsive" />
-        </div>
-      </Link>
+    session && (
+      <motion.div
+        style={{ backgroundColor: color }}
+        className={` flex justify-between fixed items-center px-4 sm:px-10 w-full z-50  `}
+      >
+        <Link href="/">
+          <div className="relative w-24 sm:w-28 md:w-32 cursor-pointer">
+            <Image
+              src="/logo.png"
+              width={300}
+              height={200}
+              layout="responsive"
+            />
+          </div>
+        </Link>
 
-      <Link href="/profile">
-        <div className="relative h-10 w-10 md:h-12 md:w-12 cursor-pointer rounded-sm overflow-hidden">
-          <Image src={session.user.image} layout="fill" />
-        </div>
-      </Link>
-    </motion.div>
+        <Link href="/profile">
+          <div className="relative h-10 w-10 md:h-12 md:w-12 cursor-pointer rounded-sm overflow-hidden">
+            <Image src={session.user.image} layout="fill" />
+          </div>
+        </Link>
+      </motion.div>
+    )
   );
 }

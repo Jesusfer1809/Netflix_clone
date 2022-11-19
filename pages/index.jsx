@@ -8,12 +8,47 @@ import Row from "../components/Row";
 import requests from "../helpers/requests";
 
 import { useSession } from "next-auth/react";
+import { checkout } from "../utils/checkout";
 
 const Home = () => {
   const { data: session } = useSession();
 
-  return (
-    session && (
+  if (session && session.user.planStatus === "No-plan") {
+    return (
+      <div
+        className={`relative pb-8 bg-opacity-100 bg-neutral-900 overflow-hidden`}
+      >
+        <Head>
+          <title>Netflix Clone</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Navbar />
+
+        <div className="text-white w-full h-screen  flex items-center justify-center text-xl  flex-col space-y-4">
+          <span>Please buy a plan </span>
+          <button
+            onClick={() => {
+              console.log("CHECKOUT");
+              checkout({
+                lineItems: [
+                  {
+                    price: "price_1M5f2cInbRLxPfHZ551yXs4K",
+                    quantity: 1,
+                  },
+                ],
+              });
+            }}
+            className=" py-2  px-4 rounded font-semibold transition-all text-white border-2 border-[#de0611] hover:border-[#f40612]  "
+          >
+            Buy plan &rarr;
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (session && session.user.planStatus === "Plan") {
+    return (
       <div
         className={`relative pb-8 bg-opacity-100 bg-neutral-900 overflow-hidden`}
       >
@@ -47,8 +82,8 @@ const Home = () => {
           <Row title="Documentaries" fetchURL={requests.fetchDocumentaries} />
         </div>
       </div>
-    )
-  );
+    );
+  }
 };
 
 export default Home;
