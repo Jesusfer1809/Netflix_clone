@@ -30,6 +30,7 @@ const Home = () => {
             onClick={() => {
               console.log("CHECKOUT");
               checkout({
+                user: session.user,
                 lineItems: [
                   {
                     price: "price_1M5f2cInbRLxPfHZ551yXs4K",

@@ -1,8 +1,9 @@
 import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 
-export const checkout = async ({ lineItems }) => {
+export const checkout = async ({ lineItems, user }) => {
   let stripePromise = null;
-  console.log("STRIPE");
+
   try {
     const getStripe = () => {
       if (!stripePromise) {
@@ -13,12 +14,18 @@ export const checkout = async ({ lineItems }) => {
 
     const stripe = await getStripe();
 
-    await stripe.redirectToCheckout({
-      mode: "payment",
-      lineItems,
-      successUrl: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
-      cancelUrl: window.location.origin,
+    const checkoutSession = await axios.post("/api/create-checkout-session", {
+      items: lineItems,
+      email: user.email,
     });
+
+    try {
+      const result = await stripe.redirectToCheckout({
+        sessionId: checkoutSession.data.id,
+      });
+    } catch (err) {
+      alert(err.message);
+    }
   } catch (err) {
     console.log("ERROR", err);
   }
