@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { FcGoogle } from "react-icons/fc";
 
@@ -9,6 +9,14 @@ import Head from "next/head";
 import Image from "next/image";
 
 function signin({ providers, csrfToken }) {
+  const [email, setEmail] = useState("");
+
+  const [emailSent, setEmailSent] = useState(false);
+
+  const handleChange = (e) => {
+    setEmail(e.target.value);
+  };
+
   return (
     <div
       className="min-h-screen relative"
@@ -36,50 +44,74 @@ function signin({ providers, csrfToken }) {
       </div>
 
       <div className="text-white py-12 px-4 flex items-center justify-center ">
-        <div className="w-full sm:w-4/5 md:w-3/5 lg:w-1/2 bg-black/70 text-center p-4 md:p-6 lg:p-8">
-          <h1 className=" block text-left text-2xl  md:text-3xl font-semibold mb-10">
-            Sign In
-          </h1>
+        {emailSent ? (
+          <div className="w-full sm:w-4/5 md:w-3/5 lg:w-1/2 bg-black/70  p-4 md:p-6 lg:p-8">
+            <h1 className=" block text-left text-2xl  md:text-3xl font-semibold mb-10">
+              Check your mailbox
+            </h1>
 
-          <form className=" flex flex-col items-center">
-            <input
-              type="email"
-              // ref={emailRef}
-              placeholder="Email or phone number"
-              className=" w-full mb-6 py-2 md:py-3 px-4 rounded bg-zinc-700 outline-none placeholder-gray-400"
-            />
-            <input
-              type="password"
-              // ref={passwordRef}
-              placeholder="Password"
-              className=" w-full mb-10 py-2 md:py-3 px-4 rounded bg-zinc-700 outline-none placeholder-gray-400"
-            />
-
-            <button className=" w-full py-2 md:py-3 px-4 rounded font-semibold transition-all text-white md:text-lg bg-[#de0611] hover:bg-[#f40612] mb-6">
+            <p className="font-medium text-sm md:text-base">
+              We have sent an email to {email}. Please check your inbox (and
+              your spam ) and confirm your email{" "}
+            </p>
+          </div>
+        ) : (
+          <div className="w-full sm:w-4/5 md:w-3/5 lg:w-1/2 bg-black/70 text-center p-4 md:p-6 lg:p-8">
+            <h1 className=" block text-left text-2xl  md:text-3xl font-semibold mb-10">
               Sign In
-            </button>
+            </h1>
 
-            <div className="border-y border-gray-800 w-full mb-6 py-2">or</div>
+            <form className=" flex flex-col items-center">
+              <input
+                type="email"
+                value={email}
+                onChange={handleChange}
+                // ref={emailRef}
+                placeholder="Email or phone number"
+                className=" w-full mb-6 py-2 md:py-3 px-4 rounded bg-zinc-700 outline-none placeholder-gray-400"
+              />
 
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                signIn(providers.google.id, { callbackUrl: "/" });
-              }}
-              className="flex items-center justify-center space-x-2 w-full py-2 md:py-3 px-4 rounded font-semibold transition-all text-white md:text-lg border-2 border-[#de0611] hover:border-[#f40612] mb-6"
-            >
-              <FcGoogle />
-              <span>Sign in with Google</span>
-            </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
 
-            <div className="block w-full text-left text-sm md:text-base ">
-              <span className=" text-gray-400 mr-2">New to Netflix?</span>
-              <span className=" border-transparent border-b-2 hover:border-white cursor-pointer transition-all ">
-                Sign Up now
-              </span>
-            </div>
-          </form>
-        </div>
+                  signIn(providers.email.id, {
+                    email,
+                    callbackUrl: "/",
+                    redirect: false,
+                  });
+
+                  setEmailSent(true);
+                }}
+                className=" w-full py-2 md:py-3 px-4 rounded font-semibold transition-all text-white md:text-lg bg-[#de0611] hover:bg-[#f40612] mb-6"
+              >
+                Sign In with Email
+              </button>
+
+              <div className="border-y border-gray-800 w-full mb-6 py-2">
+                or
+              </div>
+
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  signIn(providers.google.id, { callbackUrl: "/" });
+                }}
+                className="flex items-center justify-center space-x-2 w-full py-2 md:py-3 px-4 rounded font-semibold transition-all text-white md:text-lg border-2 border-[#de0611] hover:border-[#f40612] mb-6"
+              >
+                <FcGoogle />
+                <span>Sign in with Google</span>
+              </button>
+
+              <div className="block w-full text-left text-sm md:text-base ">
+                <span className=" text-gray-400 mr-2">New to Netflix?</span>
+                <span className=" border-transparent border-b-2 hover:border-white cursor-pointer transition-all ">
+                  Sign Up now
+                </span>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
