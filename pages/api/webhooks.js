@@ -15,6 +15,8 @@ export default async function webhookHandler(req, res) {
     const sig = req.headers["stripe-signature"];
     const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNIN_SECRET;
 
+    console.log("ENTERING WEBHOOK");
+
     let event;
 
     try {
