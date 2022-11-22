@@ -10,6 +10,7 @@ const userSchema = new Schema(
     },
     image: {
       type: String,
+      default: "https://i.imgur.com/62MNvNU.png",
     },
     emailVerified: {
       type: Date,

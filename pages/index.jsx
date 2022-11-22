@@ -5,10 +5,9 @@ import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
 import Row from "../components/Row";
 
-import requests from "../helpers/requests";
+import { requests } from "../helpers/requests";
 
 import { useSession } from "next-auth/react";
-import { checkout } from "../utils/checkout";
 
 import { authOptions } from "./api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
@@ -36,25 +35,14 @@ const Home = () => {
         <Banner />
 
         <div className="-mt-20 pb-40  flex flex-col space-y-20">
-          <Row
-            title="NETFLIX ORIGINALS"
-            fetchURL={requests.fetchNetflixOriginals}
-            isLargeRow
-          />
-
-          <Row title="Trending Now" fetchURL={requests.fetchTrending} />
-
-          <Row title="Top Rated" fetchURL={requests.fetchTrending} />
-
-          <Row title="Action Movies" fetchURL={requests.fetchActionMovies} />
-
-          <Row title="Comedy Movies" fetchURL={requests.fetchComedyMovies} />
-
-          <Row title="Horror Movies" fetchURL={requests.fetchHorrorMovies} />
-
-          <Row title="Romance Movies" fetchURL={requests.fetchRomanceMovies} />
-
-          <Row title="Documentaries" fetchURL={requests.fetchDocumentaries} />
+          {requests.map((req) => (
+            <Row
+              title={req.title}
+              fetchURL={req.fetchURL}
+              isLargeRow={req.isLargeRow}
+              key={req.title}
+            />
+          ))}
         </div>
       </div>
     );

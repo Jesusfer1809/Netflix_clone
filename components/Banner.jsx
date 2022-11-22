@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import requests from "../helpers/requests";
+import { requests } from "../helpers/requests";
 import axios from "../helpers/axios.js";
 
 import { BsFillPlayFill } from "react-icons/bs";
@@ -12,7 +12,7 @@ export default function Banner() {
   useEffect(() => {
     const fetchData = async () => {
       const req = await axios.get(
-        "https://api.themoviedb.org/3" + requests.fetchNetflixOriginals
+        "https://api.themoviedb.org/3" + requests[0].fetchURL
       );
 
       setMovie(

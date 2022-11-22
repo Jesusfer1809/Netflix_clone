@@ -13,9 +13,6 @@ export default function Navbar() {
     [0, 500],
     ["rgba(0,0,0,0.1)", "rgba(0,0,0,0.9)"]
   );
-  useEffect(() => {
-    console.log(scrollYProgress);
-  }, [scrollYProgress]);
 
   return (
     session && (

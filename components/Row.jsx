@@ -105,7 +105,6 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
       return req;
     };
     fetchMovies();
-    console.log(movies);
   }, [fetchURL]);
 
   return (
@@ -119,7 +118,11 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
           (movie) =>
             ((isLargeRow && movie.poster_path) ||
               (!isLargeRow && movie.backdrop_path)) && (
-              <MoviePreview isLargeRow={isLargeRow} movie={movie} />
+              <MoviePreview
+                isLargeRow={isLargeRow}
+                movie={movie}
+                key={movie.name || movie.title}
+              />
             )
         )}
       </Slider>
