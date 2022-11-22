@@ -21,7 +21,7 @@ export default function Navbar() {
     session && (
       <motion.div
         style={{ backgroundColor: color }}
-        className={` flex justify-between fixed items-center px-4 sm:px-10 w-full z-50  `}
+        className={` flex justify-between fixed items-center px-4 sm:px-10 w-full z-[999]  `}
       >
         <Link href="/">
           <div className="relative w-24 sm:w-28 md:w-32 cursor-pointer">

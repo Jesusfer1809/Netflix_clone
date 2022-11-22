@@ -10,42 +10,16 @@ import requests from "../helpers/requests";
 import { useSession } from "next-auth/react";
 import { checkout } from "../utils/checkout";
 
+import { authOptions } from "./api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next";
+
+import NoPlan from "components/NoPlan";
+
 const Home = () => {
   const { data: session } = useSession();
 
   if (session && session.user.planStatus === "No-plan") {
-    return (
-      <div
-        className={`relative pb-8 bg-opacity-100 bg-neutral-900 overflow-hidden`}
-      >
-        <Head>
-          <title>Netflix Clone</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <Navbar />
-
-        <div className="text-white w-full h-screen  flex items-center justify-center text-xl  flex-col space-y-4">
-          <span>Please buy a plan </span>
-          <button
-            onClick={() => {
-              console.log("CHECKOUT");
-              checkout({
-                user: session.user,
-                lineItems: [
-                  {
-                    price: "price_1M5f2cInbRLxPfHZ551yXs4K",
-                    quantity: 1,
-                  },
-                ],
-              });
-            }}
-            className=" py-2  px-4 rounded font-semibold transition-all text-white border-2 border-[#de0611] hover:border-[#f40612]  "
-          >
-            Buy plan &rarr;
-          </button>
-        </div>
-      </div>
-    );
+    return <NoPlan />;
   }
 
   if (session && session.user.planStatus === "Plan") {
@@ -90,8 +64,6 @@ const Home = () => {
 export default Home;
 
 export async function getServerSideProps(context) {
-  const { authOptions } = require("./api/auth/[...nextauth]");
-  const { unstable_getServerSession } = require("next-auth/next");
   const { req, res } = context;
 
   const session = await unstable_getServerSession(req, res, authOptions);

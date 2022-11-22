@@ -7,31 +7,20 @@ import { authOptions } from "../auth/[...nextauth]";
 dbConnect();
 
 export default async function handler(req, res) {
-  const session = await unstable_getServerSession(req, res, authOptions);
-  console.log("SESSION", session);
+  // const session = await unstable_getServerSession(req, res, authOptions);
+  // console.log("SESSION", session);
   try {
     switch (req.method) {
       case "PATCH":
-        if (session) {
-          console.log("HELLO", session);
-          const newUser = await User.findOne({ email: session.user.email });
+        const newUser = await User.findOne({ email: req.body.email });
 
-          newUser.image = "https://i.imgur.com/X4Bx9Jd.jpg";
-          await newUser.save();
-
-          return res.status(200).json({
-            status: "success",
-            data: {
-              user: newUser,
-            },
-          });
-        }
+        newUser.image = "https://i.imgur.com/PC2sunS.jpg";
+        await newUser.save();
 
         return res.status(200).json({
           status: "success",
           data: {
-            uwu: "uwu",
-            session: session,
+            user: newUser,
           },
         });
 

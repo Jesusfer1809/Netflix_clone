@@ -36,4 +36,9 @@ const userSchema = new Schema(
   }
 );
 
+// userSchema.pre("save", function (next) {
+//   this.planExpiresAt = this.planPurchasedAt + 1000 * 3600 * 24 * 7 * 4;
+//   next();
+// });
+
 export default models.User || model("User", userSchema);
