@@ -13,7 +13,7 @@ export const requests = [
   },
 
   {
-    fetchURL: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
+    fetchURL: `/discover/movie/?api_key=${API_KEY}&sort_by=vote_average.desc`,
     title: "Top Rated",
     isLargeRow: false,
   },
@@ -38,7 +38,7 @@ export const requests = [
     isLargeRow: false,
   },
   {
-    fetchURL: `/discover/movie/?api_key=${API_KEY}&certification_country=US&certification=R&sort_by=vote_average.desc`,
+    fetchURL: `/discover/movie/?api_key=${API_KEY}&with_genres=99`,
     title: "Documentaries",
     isLargeRow: false,
   },
