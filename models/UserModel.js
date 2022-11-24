@@ -26,10 +26,6 @@ const userSchema = new Schema(
     planExpiresAt: {
       type: Date,
     },
-    mood: {
-      type: String,
-      default: "uwu",
-    },
   },
   {
     timestamps: true,

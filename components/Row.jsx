@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "../helpers/axios.js";
+import axios from "axios";
 
 import Image from "next/image.js";
 
@@ -98,7 +98,7 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const req = await axios.get("https://api.themoviedb.org/3" + fetchURL);
+      const req = await axios.get(fetchURL);
 
       setMovies(req.data.results);
 
