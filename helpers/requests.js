@@ -13,7 +13,7 @@ export const requests = [
   },
 
   {
-    fetchURL: `https://api.themoviedb.org/3/discover/movie/?api_key=${API_KEY}&sort_by=vote_average.desc`,
+    fetchURL: `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=vote_average.desc`,
     title: "Top Rated",
     isLargeRow: false,
   },
@@ -38,7 +38,7 @@ export const requests = [
     isLargeRow: false,
   },
   {
-    fetchURL: `https://api.themoviedb.org/3/discover/movie/?api_key=${API_KEY}&with_genres=99`,
+    fetchURL: `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=99`,
     title: "Documentaries",
     isLargeRow: false,
   },
