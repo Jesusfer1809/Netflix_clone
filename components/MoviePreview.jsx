@@ -63,16 +63,6 @@ function MoviePreview({ isLargeRow, movie }) {
               exit={{ opacity: 0, transition: { delay: 0.2, duration: 0.3 } }}
               className={`w-full h-max bg-neutral-900 text-white relative z-[90] p-2 flex items-center justify-between space-x-4`}
             >
-              {/* <div>
-                <div>
-                  <div>icon</div>
-                  <div>icon</div>
-                  <div>icon</div>
-                </div>
-
-                <div>icon</div>
-              </div> */}
-
               <div>{movie.name || movie.title}</div>
               <div>
                 <div className="rounded-full border border-white flex p-1">

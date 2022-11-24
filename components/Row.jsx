@@ -7,105 +7,44 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { getSettings } from "../utils/slickBreakpoints";
+
 import { motion } from "framer-motion";
 import MoviePreview from "./MoviePreview.jsx";
 
-export default function Row({ title, fetchURL, isLargeRow = false }) {
-  const [movies, setMovies] = useState();
+import { useQuery } from "@tanstack/react-query";
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: isLargeRow ? 6 : 4,
-    slidesToScroll: isLargeRow ? 5 : 3,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1100,
-        settings: {
-          slidesToShow: isLargeRow ? 6 : 3,
-          slidesToScroll: isLargeRow ? 4 : 2,
-          dots: false,
-          infinite: true,
-          speed: 500,
-        },
-      },
-      {
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: isLargeRow ? 5 : 3,
-          slidesToScroll: isLargeRow ? 3 : 2,
-          dots: false,
-          infinite: true,
-          speed: 500,
-        },
-      },
-      {
-        breakpoint: 880,
-        settings: {
-          slidesToShow: isLargeRow ? 5 : 2,
-          slidesToScroll: isLargeRow ? 3 : 1,
-          dots: false,
-          infinite: true,
-          speed: 500,
-        },
-      },
-      {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: isLargeRow ? 4 : 2,
-          slidesToScroll: isLargeRow ? 2 : 1,
-          dots: false,
-          infinite: true,
-          speed: 500,
-        },
-      },
-      {
-        breakpoint: 630,
-        settings: {
-          slidesToShow: isLargeRow ? 3 : 1,
-          slidesToScroll: isLargeRow ? 1 : 1,
-          dots: false,
-          infinite: true,
-          speed: 500,
-        },
-      },
-      {
-        breakpoint: 500,
-        settings: {
-          slidesToShow: isLargeRow ? 2 : 1,
-          slidesToScroll: isLargeRow ? 1 : 1,
-          dots: false,
-          infinite: true,
-          speed: 500,
-        },
-      },
-      {
-        breakpoint: 470,
-        settings: {
-          slidesToShow: isLargeRow ? 1 : 1,
-          slidesToScroll: isLargeRow ? 1 : 1,
-          dots: false,
-          infinite: true,
-          speed: 500,
-        },
-      },
-    ],
+export default function Row({ title, fetchURL, isLargeRow = false }) {
+  const [movies, setMovies] = useState([]);
+  const getMovies = async () => {
+    const req = await axios.get(fetchURL);
+
+    return req.data;
   };
 
-  const baseURL = "https://image.tmdb.org/t/p/original/";
+  const settings = getSettings(isLargeRow);
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: [title],
+    queryFn: getMovies,
+    staleTime: 1000 * 60,
+    refetchOnWindowFocus: false,
+  });
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      const req = await axios.get(fetchURL);
+    setMovies(data.results);
+  }, [data]);
+  // const movies = data?.results;
 
-      setMovies(req.data.results);
+  if (isLoading)
+    return <span className="text-lg md:text-xl text-white">Loading...</span>;
 
-      return req;
-    };
-    fetchMovies();
-  }, [fetchURL]);
+  if (error)
+    return (
+      <p className="text-lg md:text-xl text-white">
+        An error has occurred: {error.message}{" "}
+      </p>
+    );
 
   return (
     <div className=" mx-8 lg:mx-12">

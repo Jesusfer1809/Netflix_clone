@@ -6,22 +6,38 @@ import axios from "axios";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
+import { useQuery } from "@tanstack/react-query";
+
 export default function Banner() {
-  const [movie, setMovie] = useState([]);
+  const [movie, setMovie] = useState({});
+
+  const getMovies = async () => {
+    const req = await axios.get(requests[0].fetchURL);
+    console.log(req.data);
+    return req.data;
+  };
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["bannerMovies"],
+    queryFn: getMovies,
+    staleTime: 1000 * 60,
+    refetchOnWindowFocus: false,
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const req = await axios.get(requests[0].fetchURL);
+    console.log("CHANGING");
+    setMovie(data?.results[Math.floor(Math.random() * data.results.length)]);
+  }, [data]);
 
-      setMovie(
-        req.data.results[Math.floor(Math.random() * req.data.results.length)]
-      );
+  if (isLoading)
+    return <div className="  w-full h-screen  flex items-center"></div>;
 
-      return req;
-    };
-
-    fetchData();
-  }, []);
+  if (error)
+    return (
+      <p className="text-lg md:text-xl text-white">
+        An error has occurred: {error.message}{" "}
+      </p>
+    );
 
   return (
     <div
@@ -29,7 +45,9 @@ export default function Banner() {
       style={{
         backgroundSize: "cover",
         backgroundPosition: "center top",
-        backgroundImage: `linear-gradient(rgba(23,23,23,0.3) 50%,rgba(23,23,23,0.5) 70%,rgba(23,23,23,8) 100%), url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`,
+        backgroundImage:
+          movie &&
+          `linear-gradient(rgba(23,23,23,0.3) 50%,rgba(23,23,23,0.5) 70%,rgba(23,23,23,8) 100%), url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`,
       }}
     >
       <div className="  w-full px-4 md:px-8 sm:w-2/3  lg:w-1/2 ">
