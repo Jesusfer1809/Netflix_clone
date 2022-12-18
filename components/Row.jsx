@@ -32,7 +32,9 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
   });
 
   useEffect(() => {
-    setMovies(data.results);
+    if (data) {
+      setMovies(data.results);
+    }
   }, [data]);
   // const movies = data?.results;
 
