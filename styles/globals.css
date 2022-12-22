@@ -5,3 +5,8 @@
 .slick-list {
   overflow: visible !important;
 }
+
+.slick-slide > div {
+  display: flex !important;
+  justify-content: center !important;
+}
