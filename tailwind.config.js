@@ -352,6 +352,7 @@ module.exports = {
       DEFAULT: "1",
     },
     fontFamily: {
+      lato: ["'Lato', sans-serif"],
       sans: [
         "ui-sans-serif",
         "system-ui",

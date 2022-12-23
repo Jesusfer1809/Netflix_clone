@@ -30,7 +30,7 @@ export default function Navbar() {
             />
           </div>
         </Link>
-        <span className="text-white">a</span>
+
         <Link href="/profile">
           <div className="relative h-10 w-10 md:h-12 md:w-12 cursor-pointer rounded-sm overflow-hidden">
             <Image src={session.user.image} layout="fill" />

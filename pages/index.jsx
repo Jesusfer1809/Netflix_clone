@@ -24,11 +24,12 @@ const Home = () => {
   if (session && session.user.planStatus === "Plan") {
     return (
       <div
-        className={`relative pb-8 bg-opacity-100 bg-neutral-900 overflow-hidden`}
+        className={`font-lato relative pb-8 bg-opacity-100 bg-neutral-900 overflow-hidden`}
       >
         <Head>
           <title>Netflix Clone</title>
           <link rel="icon" href="/favicon.ico" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <Navbar />
 
