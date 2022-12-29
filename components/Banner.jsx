@@ -51,22 +51,22 @@ export default function Banner() {
       }}
     >
       <div className="  w-full px-4 md:px-8 sm:w-2/3  lg:w-1/2 ">
-        <span className=" text-white inline-block text-4xl sm:text-5xl lg:text-6xl font-semibold">
+        <span className=" text-white inline-block text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-semibold">
           {movie?.name || movie?.original_name}
         </span>
 
         <div className=" mt-8 flex justify-start space-x-6">
-          <button className=" bg-white font-sans text-neutral-900 font-medium text-xl px-6 py-1 sm:py-2 sm:px-8 md:px-10 shadow-sm shadow-slate-900 rounded-sm flex items-center space-x-2 ">
+          <button className=" bg-white font-sans text-neutral-900 font-medium text-xl 2xl:text-2xl px-6 py-1 sm:py-2 sm:px-8 md:px-10 shadow-sm shadow-slate-900 rounded-sm flex items-center space-x-2 ">
             <BsFillPlayFill />
             <span>Play</span>
           </button>
-          <button className="bg-gray-500 font-sans bg-opacity-80 text-white font-medium text-xl px-6 py-1 sm:py-2 sm:px-8 md:px-10 shadow-sm shadow-slate-900 rounded-sm flex items-center space-x-2">
+          <button className="bg-gray-500 font-sans bg-opacity-80 text-white font-medium text-xl 2xl:text-2xl px-6 py-1 sm:py-2 sm:px-8 md:px-10 shadow-sm shadow-slate-900 rounded-sm flex items-center space-x-2">
             <AiOutlineInfoCircle />
             <span>More info</span>
           </button>
         </div>
 
-        <p className="text-white font-sans font-medium inline-block mt-8 text-sm md:text-base line-clamp-3">
+        <p className="text-white font-sans font-medium inline-block mt-8 text-sm md:text-base 2xl:text-lg line-clamp-3">
           {movie?.overview}
         </p>
       </div>

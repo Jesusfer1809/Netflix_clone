@@ -50,7 +50,7 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
 
   return (
     <div className=" mx-8 lg:mx-12">
-      <h2 className="text-white text-xl font-medium mb-6 -ml-4 md:-ml-2">
+      <h2 className="text-white text-xl 2xl:text-2xl font-medium mb-6 -ml-4 md:-ml-2">
         {title}
       </h2>
 

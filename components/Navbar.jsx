@@ -21,7 +21,7 @@ export default function Navbar() {
         className={` flex justify-between fixed items-center px-4 sm:px-10 w-full z-[999]  `}
       >
         <Link href="/">
-          <div className="relative w-24 sm:w-28 md:w-32 cursor-pointer">
+          <div className="relative w-24 sm:w-28 md:w-32 2xl:w-44 cursor-pointer">
             <Image
               src="/logo.png"
               width={300}
@@ -32,7 +32,7 @@ export default function Navbar() {
         </Link>
 
         <Link href="/profile">
-          <div className="relative h-10 w-10 md:h-12 md:w-12 cursor-pointer rounded-sm overflow-hidden">
+          <div className="relative h-10 w-10 md:h-12 md:w-12 2xl:w-16 2xl:h-16 cursor-pointer rounded-sm overflow-hidden">
             <Image src={session.user.image} layout="fill" />
           </div>
         </Link>
