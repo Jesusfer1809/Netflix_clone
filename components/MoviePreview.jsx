@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 import { AiOutlineDown } from "react-icons/ai";
 
-function MoviePreview({ isLargeRow, movie }) {
+function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
   const baseURL = "https://image.tmdb.org/t/p/original/";
 
   const [info, setInfo] = useState(false);
@@ -65,7 +65,10 @@ function MoviePreview({ isLargeRow, movie }) {
             >
               <div>{movie.name || movie.title}</div>
               <div>
-                <div className="rounded-full border border-white flex p-1">
+                <div
+                  className="rounded-full border border-white flex p-1 cursor-pointer"
+                  onClick={() => openTrailerModal(movie)}
+                >
                   <AiOutlineDown />
                 </div>
               </div>

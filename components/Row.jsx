@@ -13,40 +13,15 @@ import { motion } from "framer-motion";
 import MoviePreview from "./MoviePreview.jsx";
 
 import { useQuery } from "@tanstack/react-query";
+import Modal from "./Modal";
 
-export default function Row({ title, fetchURL, isLargeRow = false }) {
-  const [movies, setMovies] = useState([]);
-  const getMovies = async () => {
-    const req = await axios.get(fetchURL);
-
-    return req.data;
-  };
-
+export default function Row({
+  title,
+  movies,
+  isLargeRow = false,
+  openTrailerModal,
+}) {
   const settings = getSettings(isLargeRow);
-
-  const { isLoading, error, data } = useQuery({
-    queryKey: [title],
-    queryFn: getMovies,
-    staleTime: 1000 * 60,
-    refetchOnWindowFocus: false,
-  });
-
-  useEffect(() => {
-    if (data) {
-      setMovies(data.results);
-    }
-  }, [data]);
-  // const movies = data?.results;
-
-  if (isLoading)
-    return <span className="text-lg md:text-xl text-white">Loading...</span>;
-
-  if (error)
-    return (
-      <p className="text-lg md:text-xl text-white">
-        An error has occurred: {error.message}{" "}
-      </p>
-    );
 
   return (
     <div className=" mx-8 lg:mx-12">
@@ -63,6 +38,7 @@ export default function Row({ title, fetchURL, isLargeRow = false }) {
                 isLargeRow={isLargeRow}
                 movie={movie}
                 key={movie.name || movie.title}
+                openTrailerModal={openTrailerModal}
               />
             )
         )}

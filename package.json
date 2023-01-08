@@ -24,6 +24,7 @@
     "react-animated-css": "^1.2.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
+    "react-player": "^2.11.0",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
     "stripe": "^11.1.0",

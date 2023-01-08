@@ -8,7 +8,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 
 import { useQuery } from "@tanstack/react-query";
 
-export default function Banner() {
+export default function Banner({ openTrailerModal }) {
   const [movie, setMovie] = useState({});
 
   const getMovies = async () => {
@@ -25,7 +25,6 @@ export default function Banner() {
   });
 
   useEffect(() => {
-    console.log("CHANGING");
     setMovie(data?.results[Math.floor(Math.random() * data.results.length)]);
   }, [data]);
 
@@ -52,11 +51,14 @@ export default function Banner() {
     >
       <div className="  w-full px-4 md:px-8 sm:w-2/3  lg:w-1/2 ">
         <span className=" text-white inline-block text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-semibold">
-          {movie?.name || movie?.original_name}
+          {movie?.title || movie?.original_title}
         </span>
 
         <div className=" mt-8 flex justify-start space-x-6">
-          <button className=" bg-white font-sans text-neutral-900 font-medium text-xl 2xl:text-2xl px-6 py-1 sm:py-2 sm:px-8 md:px-10 shadow-sm shadow-slate-900 rounded-sm flex items-center space-x-2 ">
+          <button
+            onClick={() => openTrailerModal(movie)}
+            className=" bg-white font-sans text-neutral-900 font-medium text-xl 2xl:text-2xl px-6 py-1 sm:py-2 sm:px-8 md:px-10 shadow-sm shadow-slate-900 rounded-sm flex items-center space-x-2 "
+          >
             <BsFillPlayFill />
             <span>Play</span>
           </button>
