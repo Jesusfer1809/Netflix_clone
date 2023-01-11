@@ -16,6 +16,9 @@ import { unstable_getServerSession } from "next-auth/next";
 import NoPlan from "components/NoPlan";
 import axios from "axios";
 import Modal from "components/Modal";
+import SideBar from "components/SideBar";
+import { AnimatePresence } from "framer-motion";
+import MobileSidebar from "components/MobileSidebar";
 
 const Home = ({ allMovies }) => {
   const { data: session } = useSession();
@@ -24,6 +27,11 @@ const Home = ({ allMovies }) => {
     isOpen: false,
     movie: undefined,
   });
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const openMenu = () => setIsMenuOpen(true);
+  const closeMenu = () => setIsMenuOpen(false);
 
   const openTrailerModal = (movie) => {
     setModal({
@@ -53,27 +61,44 @@ const Home = ({ allMovies }) => {
           <link rel="icon" href="/favicon.ico" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
-        {modal.isOpen && (
-          <Modal
-            modalState={modal}
-            openTrailerModal={openTrailerModal}
-            closeTrailerModal={closeTrailerModal}
-          />
-        )}
-        <Navbar />
-
-        <Banner openTrailerModal={openTrailerModal} />
-
-        <div className="-mt-20 pb-40  flex flex-col space-y-20 relative ">
-          {allMovies.map((row) => (
-            <Row
-              title={row.title}
-              isLargeRow={row.isLargeRow}
-              key={row.title}
-              movies={row.movies}
+        <AnimatePresence>
+          {modal.isOpen && (
+            <Modal
+              modalState={modal}
               openTrailerModal={openTrailerModal}
+              closeTrailerModal={closeTrailerModal}
             />
-          ))}
+          )}
+        </AnimatePresence>
+
+        <div>
+          <SideBar
+            isOpen={isMenuOpen}
+            openMenu={openMenu}
+            closeMenu={closeMenu}
+          />
+          <MobileSidebar
+            isOpen={isMenuOpen}
+            openMenu={openMenu}
+            closeMenu={closeMenu}
+          />
+          <div className="relative  sm:pl-16 lg:pl-20 ">
+            <Navbar inIndex={true} openMenu={openMenu} />
+
+            <Banner openTrailerModal={openTrailerModal} />
+
+            <div className="-mt-10 pb-40  flex flex-col gap-y-24 relative overflow-x-hidden">
+              {allMovies.map((row) => (
+                <Row
+                  title={row.title}
+                  isLargeRow={row.isLargeRow}
+                  key={row.title}
+                  movies={row.movies}
+                  openTrailerModal={openTrailerModal}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );

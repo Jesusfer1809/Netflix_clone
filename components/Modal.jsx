@@ -7,6 +7,7 @@ import {
   BsPlay,
 } from "react-icons/bs";
 import ReactPlayer from "react-player/youtube";
+import { motion } from "framer-motion";
 
 function Modal({ modalState, closeTrailerModal }) {
   const { movie } = modalState;
@@ -53,10 +54,21 @@ function Modal({ modalState, closeTrailerModal }) {
   }, [movie]);
 
   return (
-    <div
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      transition={{ duration: 0.4 }}
+      exit={{
+        opacity: 0,
+        transition: { duration: 0.4 },
+      }}
       className={`fixed top-0 left-0 w-screen min-h-screen   py-8 z-[150] flex justify-center scrollbar-hide `}
     >
-      <div className="w-full sm:w-4/5 md:w-2/3  relative z-[200] rounded-lg overflow-hidden ">
+      <motion.div className="w-full sm:w-4/5 md:w-2/3  relative z-[200] rounded-lg overflow-hidden ">
         <div className="w-full h-80 relative ">
           <div className="absolute  bottom-4 left-0 w-full   flex justify-between px-6">
             <div className="flex gap-x-8">
@@ -123,6 +135,10 @@ function Modal({ modalState, closeTrailerModal }) {
             </div>
           </div>
 
+          <div>
+            <h1 className="text-2xl md:text-3xl">{movie.title}</h1>
+          </div>
+
           <div className="text-sm">{trailerMovie?.overview}</div>
           <div className="text-sm flex flex-col gap-y-2">
             <div>
@@ -140,13 +156,13 @@ function Modal({ modalState, closeTrailerModal }) {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <div
-        className="absolute top-0 left-0 bg-black bg-opacity-50 w-full h-full z-[0]"
+        className="absolute top-0 left-0 bg-black bg-opacity-80 w-full h-full z-[0]"
         onClick={closeTrailerModal}
       />
-    </div>
+    </motion.div>
   );
 }
 

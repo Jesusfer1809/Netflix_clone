@@ -46,15 +46,19 @@ export default function Banner({ openTrailerModal }) {
         backgroundPosition: "center top",
         backgroundImage:
           movie &&
-          `linear-gradient(rgba(23,23,23,0.3) 50%,rgba(23,23,23,0.5) 70%,rgba(23,23,23,8) 100%), url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`,
+          `linear-gradient(rgba(23,23,23,0) 50%,rgba(23,23,23,0.7) 70%,rgba(23,23,23,1) 100%),linear-gradient(to left,rgba(23,23,23,0) 30%,rgba(23,23,23,0.5) 60%,rgba(23,23,23,1) 100%), url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`,
       }}
     >
       <div className="  w-full px-4 md:px-8 sm:w-2/3  lg:w-1/2 ">
-        <span className=" text-white inline-block text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-semibold">
+        <span className=" text-white inline-block text-4xl sm:text-5xl lg:text-5xl 2xl:text-6xl font-semibold">
           {movie?.title || movie?.original_title}
         </span>
 
-        <div className=" mt-8 flex justify-start space-x-6">
+        <p className="text-white font-sans font-medium inline-block mt-8 text-sm md:text-base 2xl:text-lg line-clamp-3">
+          {movie?.overview}
+        </p>
+
+        <div className=" mt-8 ">
           <button
             onClick={() => openTrailerModal(movie)}
             className=" bg-white font-sans text-neutral-900 font-medium text-xl 2xl:text-2xl px-6 py-1 sm:py-2 sm:px-8 md:px-10 shadow-sm shadow-slate-900 rounded-sm flex items-center space-x-2 "
@@ -62,15 +66,7 @@ export default function Banner({ openTrailerModal }) {
             <BsFillPlayFill />
             <span>Play</span>
           </button>
-          <button className="bg-gray-500 font-sans bg-opacity-80 text-white font-medium text-xl 2xl:text-2xl px-6 py-1 sm:py-2 sm:px-8 md:px-10 shadow-sm shadow-slate-900 rounded-sm flex items-center space-x-2">
-            <AiOutlineInfoCircle />
-            <span>More info</span>
-          </button>
         </div>
-
-        <p className="text-white font-sans font-medium inline-block mt-8 text-sm md:text-base 2xl:text-lg line-clamp-3">
-          {movie?.overview}
-        </p>
       </div>
     </div>
   );

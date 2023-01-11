@@ -18,14 +18,14 @@ import Modal from "./Modal";
 export default function Row({
   title,
   movies,
-  isLargeRow = false,
+  isLargeRow = true,
   openTrailerModal,
 }) {
-  const settings = getSettings(isLargeRow);
+  const settings = getSettings(true);
 
   return (
     <div className=" mx-8 lg:mx-12">
-      <h2 className="text-white text-xl 2xl:text-2xl font-medium mb-6 -ml-4 md:-ml-2">
+      <h2 className="text-white text-xl 2xl:text-2xl font-medium mb-8 -ml-4 md:-ml-2">
         {title}
       </h2>
 
@@ -35,7 +35,7 @@ export default function Row({
             ((isLargeRow && movie.poster_path) ||
               (!isLargeRow && movie.backdrop_path)) && (
               <MoviePreview
-                isLargeRow={isLargeRow}
+                isLargeRow={true}
                 movie={movie}
                 key={movie.name || movie.title}
                 openTrailerModal={openTrailerModal}
