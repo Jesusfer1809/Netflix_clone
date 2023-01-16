@@ -25,17 +25,15 @@ function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
         onMouseLeave={closeInfo}
       >
         <div
-          className={` w-72 cursor-pointer relative rounded-md overflow-hidden `}
+          className={` w-72 h-72 cursor-pointer relative rounded-md overflow-hidden `}
         >
           <Image
             src={`${baseURL}${
               isLargeRow ? movie.poster_path : movie.backdrop_path
             }`}
-            width={500}
-            height={500}
-            layout="responsive"
+            alt={movie.title || movie.name}
+            layout="fill"
             objectFit="contain"
-            unoptimized
           />
         </div>
         <AnimatePresence>
@@ -60,14 +58,14 @@ function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
                 transition: { delay: 0.2, duration: 0.3 },
               }}
             >
-              <motion.div className={`w-96   cursor-pointer relative z-[90]  `}>
+              <motion.div
+                className={`w-96 h-[13.5rem]  cursor-pointer relative z-[90]  `}
+              >
                 <Image
                   src={`${baseURL}${movie.backdrop_path}`}
-                  width={700}
-                  height={390}
+                  alt={movie.name || movie.title}
                   objectFit="contain"
-                  layout="responsive"
-                  unoptimized
+                  layout="fill"
                 />
               </motion.div>
               <motion.div
@@ -99,17 +97,15 @@ function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
         onClick={() => openTrailerModal(movie)}
       >
         <div
-          className={` w-72 cursor-pointer relative rounded-md overflow-hidden `}
+          className={` w-72 h-[13.5rem] cursor-pointer relative rounded-md overflow-hidden `}
         >
           <Image
             src={`${baseURL}${
               isLargeRow ? movie.poster_path : movie.backdrop_path
             }`}
-            width={500}
-            height={500}
-            layout="responsive"
+            alt={movie.name || movie.title}
             objectFit="contain"
-            unoptimized
+            layout="fill"
           />
         </div>
       </motion.div>
