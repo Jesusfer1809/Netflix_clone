@@ -32,8 +32,8 @@ export default function Row({
       <Slider {...settings}>
         {movies?.map(
           (movie) =>
-            ((isLargeRow && movie.poster_path) ||
-              (!isLargeRow && movie.backdrop_path)) && (
+            movie.poster_path &&
+            movie.backdrop_path && (
               <MoviePreview
                 isLargeRow={true}
                 movie={movie}
