@@ -72,20 +72,18 @@ function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
                 className={`w-full h-max bg-neutral-900 text-white relative z-[90] p-3 flex items-center justify-between gap-x-8`}
               >
                 <div className="flex flex-col gap-y-2">
-                  <div>{movie.name || movie.title}</div>
-                  <div className="text-xs line-clamp-3 text-neutral-400">
+                  <span>{movie.name || movie.title}</span>
+                  <p className="text-xs line-clamp-3 text-neutral-400">
                     {movie.overview}
-                  </div>
+                  </p>
                 </div>
 
-                <div>
-                  <div
-                    className="rounded-full border border-white flex items-center justify-center p-1 cursor-pointer"
-                    onClick={() => openTrailerModal(movie)}
-                  >
-                    <BsFillPlayFill className="text-2xl" />
-                  </div>
-                </div>
+                <button
+                  className="rounded-full border border-white flex items-center justify-center p-1 cursor-pointer"
+                  onClick={() => openTrailerModal(movie)}
+                >
+                  <BsFillPlayFill className="text-2xl" />
+                </button>
               </motion.div>
             </motion.div>
           )}
@@ -93,21 +91,17 @@ function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
       </motion.div>
 
       <motion.div
-        className={` shrink-0   relative shadow-md lg:hidden `}
+        className={` shrink-0   w-72 h-72 cursor-pointer relative rounded-md overflow-hidden shadow-md lg:hidden `}
         onClick={() => openTrailerModal(movie)}
       >
-        <div
-          className={` w-72 h-[13.5rem] cursor-pointer relative rounded-md overflow-hidden `}
-        >
-          <Image
-            src={`${baseURL}${
-              isLargeRow ? movie.poster_path : movie.backdrop_path
-            }`}
-            alt={movie.name || movie.title}
-            objectFit="contain"
-            layout="fill"
-          />
-        </div>
+        <Image
+          src={`${baseURL}${
+            isLargeRow ? movie.poster_path : movie.backdrop_path
+          }`}
+          alt={movie.name || movie.title}
+          objectFit="contain"
+          layout="fill"
+        />
       </motion.div>
     </>
   );

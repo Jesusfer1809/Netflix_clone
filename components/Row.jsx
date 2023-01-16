@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
-import Image from "next/image.js";
+import React from "react";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -9,11 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { getSettings } from "../utils/slickBreakpoints";
 
-import { motion } from "framer-motion";
 import MoviePreview from "./MoviePreview.jsx";
-
-import { useQuery } from "@tanstack/react-query";
-import Modal from "./Modal";
 
 export default function Row({
   title,

@@ -20,7 +20,7 @@ export default function Banner({ openTrailerModal }) {
   const { isLoading, error, data } = useQuery({
     queryKey: ["bannerMovies"],
     queryFn: getMovies,
-    staleTime: 1000 * 60,
+
     refetchOnWindowFocus: false,
   });
 
