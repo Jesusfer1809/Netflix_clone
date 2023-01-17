@@ -14,13 +14,12 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
 
 import NoPlan from "components/NoPlan";
-import axios from "axios";
 import Modal from "components/Modal";
 import SideBar from "components/SideBar";
 import { AnimatePresence } from "framer-motion";
 import MobileSidebar from "components/MobileSidebar";
 
-const Home = ({ allMovies }) => {
+const Home = () => {
   const { data: session } = useSession();
 
   const [modal, setModal] = useState({
@@ -87,17 +86,17 @@ const Home = ({ allMovies }) => {
 
             <Banner openTrailerModal={openTrailerModal} />
 
-            <div className="-mt-10 pb-40  flex flex-col gap-y-24 relative overflow-x-hidden">
-              {allMovies.map((row) => (
+            <main className="-mt-10 pb-40  flex flex-col gap-y-24 relative overflow-x-hidden z-[40]">
+              {requests.map((request) => (
                 <Row
-                  title={row.title}
-                  isLargeRow={row.isLargeRow}
-                  key={row.title}
-                  movies={row.movies}
+                  title={request.title}
+                  isLargeRow={request.isLargeRow}
+                  key={request.title}
+                  fetchURL={request.fetchURL}
                   openTrailerModal={openTrailerModal}
                 />
               ))}
-            </div>
+            </main>
           </div>
         </div>
       </div>
@@ -120,35 +119,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const result = await Promise.all(
-    requests.map(async (r) => {
-      return await axios.get(r.fetchURL);
-    })
-  );
-
-  const [
-    originals,
-    trending,
-    top,
-    action,
-    comedy,
-    horror,
-    romance,
-    documentaries,
-  ] = result.map((r) => r.data.results);
-
   return {
-    props: {
-      allMovies: [
-        { movies: originals, title: "NETFLIX ORIGINALS", isLargeRow: true },
-        { movies: trending, title: "Trending Now", isLargeRow: false },
-        { movies: top, title: "Top Rated", isLargeRow: false },
-        { movies: action, title: "Action Movies", isLargeRow: false },
-        { movies: comedy, title: "Comedy Movies", isLargeRow: false },
-        { movies: horror, title: "Horror Movies", isLargeRow: false },
-        { movies: romance, title: "Romance Movies", isLargeRow: false },
-        { movies: documentaries, title: "Documentaries", isLargeRow: false },
-      ],
-    },
+    props: {},
   };
 }

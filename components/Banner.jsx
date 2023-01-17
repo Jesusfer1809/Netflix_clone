@@ -7,6 +7,7 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
 export default function Banner({ openTrailerModal }) {
   const [movie, setMovie] = useState({});
@@ -39,17 +40,27 @@ export default function Banner({ openTrailerModal }) {
     );
 
   return (
-    <div
-      className="  w-full h-screen  flex items-center"
-      style={{
-        backgroundSize: "cover",
-        backgroundPosition: "center top",
-        backgroundImage:
-          movie &&
-          `linear-gradient(rgba(23,23,23,0) 50%,rgba(23,23,23,0.7) 70%,rgba(23,23,23,1) 100%),linear-gradient(to left,rgba(23,23,23,0) 30%,rgba(23,23,23,0.5) 60%,rgba(23,23,23,1) 100%), url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`,
-      }}
-    >
-      <div className="  w-full px-4 md:px-8 sm:w-2/3  lg:w-1/2 ">
+    <div className="  w-full h-screen  relative flex items-center ">
+      {/* BANNER BACKGROUND */}
+
+      <div className="w-full h-full absolute top-0 left-0 z-[20]">
+        <Image
+          src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+
+      <div
+        className="w-full h-full absolute top-0 left-0 z-[30]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(23,23,23,0) 50%,rgba(23,23,23,0.7) 70%,rgba(23,23,23,1) 100%),linear-gradient(to left,rgba(23,23,23,0) 30%,rgba(23,23,23,0.5) 60%,rgba(23,23,23,1) 100%)`,
+        }}
+      />
+
+      {/* BANNER CONTENT */}
+
+      <div className="  w-full px-4 md:px-8 sm:w-2/3  lg:w-1/2 relative z-[40]">
         <span className=" text-white inline-block text-4xl sm:text-5xl lg:text-5xl 2xl:text-6xl font-semibold">
           {movie?.title || movie?.original_title}
         </span>
