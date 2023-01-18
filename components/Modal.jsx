@@ -90,25 +90,16 @@ function Modal({ modalState, closeTrailerModal }) {
               </div>
             </div>
 
-            <div>
-              <div>
-                {muted ? (
-                  <button
-                    onClick={() => setMuted(!muted)}
-                    className="w-11 h-11 border-2 border-white flex items-center justify-center rounded-full bg-neutral-900"
-                  >
-                    <BsFillVolumeMuteFill className="text-white text-2xl" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setMuted(!muted)}
-                    className="w-11 h-11 border-2 border-white flex items-center justify-center rounded-full bg-neutral-900"
-                  >
-                    <BsFillVolumeUpFill className="text-white text-2xl" />
-                  </button>
-                )}
-              </div>
-            </div>
+            <button
+              onClick={() => setMuted(!muted)}
+              className="w-11 h-11 border-2 border-white flex items-center justify-center rounded-full bg-neutral-900"
+            >
+              {muted ? (
+                <BsFillVolumeMuteFill className="text-white text-2xl" />
+              ) : (
+                <BsFillVolumeUpFill className="text-white text-2xl" />
+              )}
+            </button>
           </div>
           {trailerKey ? (
             <ReactPlayer
@@ -135,11 +126,9 @@ function Modal({ modalState, closeTrailerModal }) {
             </div>
           </div>
 
-          <div>
-            <h1 className="text-2xl md:text-3xl">{movie.title}</h1>
-          </div>
+          <h1 className="text-2xl md:text-3xl">{movie.title}</h1>
 
-          <div className="text-sm">{trailerMovie?.overview}</div>
+          <p className="text-sm">{trailerMovie?.overview}</p>
           <div className="text-sm flex flex-col gap-y-2">
             <div>
               <span className="text-gray-400">Genres: </span>{" "}
