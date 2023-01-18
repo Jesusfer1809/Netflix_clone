@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { BsFillPlayFill } from "react-icons/bs";
 import { useTrailerModalStore } from "store/trailerModalStore";
+import { useWindowSize } from "hooks/useWindowSize";
 
 function MoviePreview({ movie }) {
   const baseURL = "https://image.tmdb.org/t/p/original/";
@@ -16,8 +17,10 @@ function MoviePreview({ movie }) {
   const openInfo = () => setInfo(true);
   const closeInfo = () => setInfo(false);
 
-  return (
-    <>
+  const [width, _] = useWindowSize();
+
+  if (width >= 1024) {
+    return (
       <motion.div
         className={` shrink-0   relative shadow-md hidden lg:block `}
         onMouseEnter={openInfo}
@@ -86,7 +89,9 @@ function MoviePreview({ movie }) {
           )}
         </AnimatePresence>
       </motion.div>
-
+    );
+  } else {
+    return (
       <motion.div
         className={` shrink-0   w-72 h-72 cursor-pointer relative rounded-md overflow-hidden shadow-md lg:hidden `}
         onClick={() => openTrailerModal(movie)}
@@ -98,8 +103,8 @@ function MoviePreview({ movie }) {
           layout="fill"
         />
       </motion.div>
-    </>
-  );
+    );
+  }
 }
 
 export default MoviePreview;

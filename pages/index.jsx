@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Head from "next/head";
 import Navbar from "../components/Navbar";
@@ -16,9 +16,12 @@ import NoPlan from "components/NoPlan";
 import Modal from "components/Modal";
 import SideBar from "components/SideBar";
 import MobileSidebar from "components/MobileSidebar";
+import { useWindowSize } from "hooks/useWindowSize";
 
 const Home = () => {
   const { data: session } = useSession();
+
+  const [width, height] = useWindowSize();
 
   if (session && session.user.planStatus === "No-plan") {
     return <NoPlan />;
@@ -37,8 +40,8 @@ const Home = () => {
 
         <Modal />
 
-        <SideBar />
-        <MobileSidebar />
+        {width >= 640 ? <SideBar /> : <MobileSidebar />}
+
         <div className="relative  sm:pl-16 lg:pl-20 ">
           <Navbar inIndex={true} />
 

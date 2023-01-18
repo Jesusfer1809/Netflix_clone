@@ -6,8 +6,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useSidebarMenuStore } from "store/sidebarMenuStore";
+import { useWindowSize } from "hooks/useWindowSize";
 
 export default function Navbar({ inIndex }) {
+  const [width, _] = useWindowSize();
+
   const { scrollY } = useScroll();
   const openSidebarMenu = useSidebarMenuStore((state) => state.openSidebarMenu);
   const { data: session } = useSession();
@@ -27,9 +30,11 @@ export default function Navbar({ inIndex }) {
             : "px-4 sm:px-10 justify-between"
         }  items-center w-full z-[100]  `}
       >
-        <div onClick={openSidebarMenu} className="text-white sm:hidden">
-          <GiHamburgerMenu className="text-3xl" />
-        </div>
+        {width < 640 ? (
+          <div onClick={openSidebarMenu} className="text-white sm:hidden">
+            <GiHamburgerMenu className="text-3xl" />
+          </div>
+        ) : null}
 
         <Link href="/">
           <div className="relative w-24 sm:w-28 md:w-32 2xl:w-44 cursor-pointer">
