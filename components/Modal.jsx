@@ -83,7 +83,7 @@ function Modal() {
           }}
           className={`fixed top-0 left-0 w-screen  h-screen   py-8  flex justify-center items-center scrollbar-hide z-[900]  `}
         >
-          <motion.div className="w-full sm:w-4/5 md:w-2/3 h-4/5 sm:h-full  relative  rounded-lg overflow-hidden z-[1000] ">
+          <motion.div className="w-full sm:w-4/5 md:w-2/3 h-full  relative  rounded-lg overflow-hidden z-[1000] ">
             <div className="w-full h-80 relative ">
               <div className="absolute  bottom-4 left-0 w-full   flex justify-between px-6">
                 <div className="flex gap-x-8">
