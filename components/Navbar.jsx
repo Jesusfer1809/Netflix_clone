@@ -23,7 +23,7 @@ export default function Navbar({ inIndex, openMenu }) {
           inIndex
             ? " pl-8 pr-4 sm:px-10 justify-between sm:justify-end"
             : "px-4 sm:px-10 justify-between"
-        }  items-center w-full z-[10]  `}
+        }  items-center w-full z-[100]  `}
       >
         <div onClick={openMenu} className="text-white sm:hidden">
           <GiHamburgerMenu className="text-3xl" />

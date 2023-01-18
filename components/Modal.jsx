@@ -66,9 +66,9 @@ function Modal({ modalState, closeTrailerModal }) {
         opacity: 0,
         transition: { duration: 0.4 },
       }}
-      className={`fixed top-0 left-0 w-screen min-h-screen   py-8 z-[150] flex justify-center scrollbar-hide `}
+      className={`fixed top-0 left-0 w-screen  h-screen   py-8  flex justify-center items-center scrollbar-hide z-[900]  `}
     >
-      <motion.div className="w-full sm:w-4/5 md:w-2/3  relative z-[200] rounded-lg overflow-hidden ">
+      <motion.div className="w-full sm:w-4/5 md:w-2/3 h-4/5 sm:h-full  relative  rounded-lg overflow-hidden z-[1000] ">
         <div className="w-full h-80 relative ">
           <div className="absolute  bottom-4 left-0 w-full   flex justify-between px-6">
             <div className="flex gap-x-8">
@@ -159,7 +159,7 @@ function Modal({ modalState, closeTrailerModal }) {
       </motion.div>
 
       <div
-        className="absolute top-0 left-0 bg-black bg-opacity-80 w-full h-full z-[0]"
+        className="absolute top-0 left-0 bg-black bg-opacity-80 w-full h-full z-[900]"
         onClick={closeTrailerModal}
       />
     </motion.div>

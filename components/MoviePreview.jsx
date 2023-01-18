@@ -51,7 +51,7 @@ function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
                 boxShadow: "0px 10px 15px -3px black",
                 opacity: 1,
               }}
-              transition={{ delay: 0.3, duration: 0.4 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
               exit={{
                 scale: 1,
                 opacity: 0,
