@@ -9,15 +9,12 @@ import { getSettings } from "../utils/slickBreakpoints";
 import MoviePreview from "./MoviePreview.jsx";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { fetchRowMovies } from "utils/fetchFunctions";
 
 export default function Row({ title, fetchURL }) {
   const settings = getSettings(true);
 
-  const fetchMovies = async () => {
-    const res = await axios.get(fetchURL);
-
-    return res.data.results;
-  };
+  const fetchMovies = () => fetchRowMovies(fetchURL);
 
   const {
     data: movies,

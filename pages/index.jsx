@@ -17,11 +17,17 @@ import Modal from "components/Modal";
 import SideBar from "components/SideBar";
 import MobileSidebar from "components/MobileSidebar";
 import { useWindowSize } from "hooks/useWindowSize";
+import { AnimatePresence } from "framer-motion";
+import { useTrailerModalStore } from "store/trailerModalStore";
 
 const Home = () => {
   const { data: session } = useSession();
 
   const [width, height] = useWindowSize();
+
+  const trailerModalIsOpen = useTrailerModalStore(
+    (state) => state.trailerModalIsOpen
+  );
 
   if (session && session.user.planStatus === "No-plan") {
     return <NoPlan />;
@@ -38,7 +44,7 @@ const Home = () => {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
 
-        <Modal />
+        <AnimatePresence>{trailerModalIsOpen && <Modal />}</AnimatePresence>
 
         {width >= 640 ? <SideBar /> : <MobileSidebar />}
 

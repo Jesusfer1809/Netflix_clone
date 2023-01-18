@@ -8,6 +8,7 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useTrailerModalStore } from "store/trailerModalStore";
+import { getBannerMovies } from "utils/fetchFunctions";
 
 export default function Banner() {
   const [movie, setMovie] = useState({});
@@ -16,15 +17,9 @@ export default function Banner() {
     (state) => state.openTrailerModal
   );
 
-  const getMovies = async () => {
-    const req = await axios.get(requests[0].fetchURL);
-
-    return req.data;
-  };
-
   const { isLoading, error, data } = useQuery({
     queryKey: ["bannerMovies"],
-    queryFn: getMovies,
+    queryFn: getBannerMovies,
 
     refetchOnWindowFocus: false,
   });
