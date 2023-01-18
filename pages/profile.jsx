@@ -5,7 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 
 import Head from "next/head";
 import Image from "next/image";
-import axios from "axios";
+
 import Router, { useRouter } from "next/router";
 import { checkout } from "utils/checkout";
 

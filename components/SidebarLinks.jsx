@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
 
-function SidebarLinks({ title, children, isOpen, gray, href }) {
+function SidebarLinks({ title, children, sidebarMenuIsOpen, gray, href }) {
   return (
     <Link href={href} passHref>
       <div className="flex items-center gap-x-6 cursor-pointer">
@@ -15,7 +15,7 @@ function SidebarLinks({ title, children, isOpen, gray, href }) {
           {children}
         </div>
         <AnimatePresence>
-          {isOpen && (
+          {sidebarMenuIsOpen && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{

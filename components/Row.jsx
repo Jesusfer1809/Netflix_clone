@@ -10,12 +10,7 @@ import MoviePreview from "./MoviePreview.jsx";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-export default function Row({
-  title,
-  fetchURL,
-  isLargeRow = true,
-  openTrailerModal,
-}) {
+export default function Row({ title, fetchURL }) {
   const settings = getSettings(true);
 
   const fetchMovies = async () => {
@@ -53,7 +48,6 @@ export default function Row({
                   isLargeRow={true}
                   movie={movie}
                   key={movie.name || movie.title}
-                  openTrailerModal={openTrailerModal}
                 />
               )
           )}

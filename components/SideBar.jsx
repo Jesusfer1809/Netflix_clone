@@ -12,36 +12,66 @@ import {
 import { TbDoorExit } from "react-icons/tb";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarLinks from "./SidebarLinks";
+import { useSidebarMenuStore } from "store/sidebarMenuStore";
 
-function SideBar({ isOpen, openMenu, closeMenu }) {
+function SideBar() {
   const { data: session } = useSession();
+
+  const sidebarMenuIsOpen = useSidebarMenuStore(
+    (state) => state.sidebarMenuIsOpen
+  );
+
+  const openSidebarMenu = useSidebarMenuStore((state) => state.openSidebarMenu);
+
+  const closeSidebarMenu = useSidebarMenuStore(
+    (state) => state.closeSidebarMenu
+  );
 
   return (
     <motion.div
       className={`hidden  sm:flex flex-col justify-between   ${
-        isOpen ? "w-1/3 lg:w-1/5 " : "sm:w-20 lg:w-24"
+        sidebarMenuIsOpen ? "w-1/3 lg:w-1/5 " : "sm:w-20 lg:w-24"
       }  duration-500 ease-in-out  h-screen fixed top-0 left-0 bg-zinc-900  text-white z-[200] sm:px-4 lg:px-6 rounded-lg`}
     >
       <div
-        onClick={isOpen ? closeMenu : openMenu}
+        onClick={sidebarMenuIsOpen ? closeSidebarMenu : openSidebarMenu}
         className="absolute top-4 -right-4 border-2 border-white text-white text-2xl p-1 rounded-full cursor-pointer"
       >
-        {isOpen ? <AiOutlineLeft /> : <AiOutlineRight />}
+        {sidebarMenuIsOpen ? <AiOutlineLeft /> : <AiOutlineRight />}
       </div>
       <div className={`flex flex-col w-full pt-20   gap-y-8`}>
-        <SidebarLinks isOpen={isOpen} title={"Profile"} href="/profile">
+        <SidebarLinks
+          sidebarMenuIsOpen={sidebarMenuIsOpen}
+          title={"Profile"}
+          href="/profile"
+        >
           <Image src={session.user.image} layout="fill" />
         </SidebarLinks>
 
-        <SidebarLinks isOpen={isOpen} title={"Home"} gray href="/">
+        <SidebarLinks
+          sidebarMenuIsOpen={sidebarMenuIsOpen}
+          title={"Home"}
+          gray
+          href="/"
+        >
           <AiOutlineHome className="text-2xl" />
         </SidebarLinks>
 
-        <SidebarLinks isOpen={isOpen} title={"Search"} gray href="/search">
+        <SidebarLinks
+          sidebarMenuIsOpen={sidebarMenuIsOpen}
+          title={"Search"}
+          gray
+          href="/search"
+        >
           <AiOutlineSearch className="text-2xl" />
         </SidebarLinks>
 
-        <SidebarLinks isOpen={isOpen} title={"My list"} gray href="/list">
+        <SidebarLinks
+          sidebarMenuIsOpen={sidebarMenuIsOpen}
+          title={"My list"}
+          gray
+          href="/list"
+        >
           <AiOutlineHeart className="text-2xl" />
         </SidebarLinks>
       </div>
@@ -55,7 +85,7 @@ function SideBar({ isOpen, openMenu, closeMenu }) {
             <TbDoorExit className="text-2xl" />
           </div>
           <AnimatePresence>
-            {isOpen && (
+            {sidebarMenuIsOpen && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{

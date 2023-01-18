@@ -4,17 +4,21 @@ import { requests } from "../helpers/requests";
 import axios from "axios";
 
 import { BsFillPlayFill } from "react-icons/bs";
-import { AiOutlineInfoCircle } from "react-icons/ai";
 
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import { useTrailerModalStore } from "store/trailerModalStore";
 
-export default function Banner({ openTrailerModal }) {
+export default function Banner() {
   const [movie, setMovie] = useState({});
+
+  const openTrailerModal = useTrailerModalStore(
+    (state) => state.openTrailerModal
+  );
 
   const getMovies = async () => {
     const req = await axios.get(requests[0].fetchURL);
-    console.log(req.data);
+
     return req.data;
   };
 
@@ -48,6 +52,7 @@ export default function Banner({ openTrailerModal }) {
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
           layout="fill"
           objectFit="cover"
+          priority
         />
       </div>
 

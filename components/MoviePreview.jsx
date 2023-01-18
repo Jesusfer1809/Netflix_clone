@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-import { AiOutlineDown } from "react-icons/ai";
 import { BsFillPlayFill } from "react-icons/bs";
+import { useTrailerModalStore } from "store/trailerModalStore";
 
-function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
+function MoviePreview({ movie }) {
   const baseURL = "https://image.tmdb.org/t/p/original/";
 
-  const [info, setInfo] = useState(false);
+  const openTrailerModal = useTrailerModalStore(
+    (state) => state.openTrailerModal
+  );
 
-  const openInfo = () => {
-    setInfo(true);
-  };
-  const closeInfo = () => {
-    setInfo(false);
-  };
+  const [infoIsOpen, setInfo] = useState(false);
+  const openInfo = () => setInfo(true);
+  const closeInfo = () => setInfo(false);
 
   return (
     <>
@@ -28,16 +27,14 @@ function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
           className={` w-72 h-72 cursor-pointer relative rounded-md overflow-hidden `}
         >
           <Image
-            src={`${baseURL}${
-              isLargeRow ? movie.poster_path : movie.backdrop_path
-            }`}
+            src={`${baseURL}${movie.poster_path}`}
             alt={movie.title || movie.name}
             layout="fill"
             objectFit="contain"
           />
         </div>
         <AnimatePresence>
-          {info && (
+          {infoIsOpen && (
             <motion.div
               className={` absolute top-1/2  left-0 rounded-md overflow-hidden z-[90] `}
               initial={{
@@ -95,9 +92,7 @@ function MoviePreview({ isLargeRow, movie, openTrailerModal }) {
         onClick={() => openTrailerModal(movie)}
       >
         <Image
-          src={`${baseURL}${
-            isLargeRow ? movie.poster_path : movie.backdrop_path
-          }`}
+          src={`${baseURL}${movie.poster_path}`}
           alt={movie.name || movie.title}
           objectFit="contain"
           layout="fill"

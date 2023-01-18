@@ -1,30 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
+
 import {
   AiOutlineHeart,
   AiOutlineHome,
   AiOutlineLeft,
-  AiOutlineRight,
   AiOutlineSearch,
 } from "react-icons/ai";
 import { TbDoorExit } from "react-icons/tb";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarLinks from "./SidebarLinks";
+import { useSidebarMenuStore } from "store/sidebarMenuStore";
 
-function MobileSidebar({ isOpen, openMenu, closeMenu }) {
+function MobileSidebar() {
   const { data: session } = useSession();
+
+  const sidebarMenuIsOpen = useSidebarMenuStore(
+    (state) => state.sidebarMenuIsOpen
+  );
+
+  const closeSidebarMenu = useSidebarMenuStore(
+    (state) => state.closeSidebarMenu
+  );
 
   return (
     <motion.div
       className={` sm:hidden ${
-        isOpen ? "w-1/2 " : "w-0"
+        sidebarMenuIsOpen ? "w-1/2 " : "w-0"
       }  duration-700  h-screen fixed top-0 left-0 bg-zinc-900  text-white z-[200]`}
     >
       <AnimatePresence>
-        {isOpen && (
+        {sidebarMenuIsOpen && (
           <motion.div
             key="menu"
             initial={{ opacity: 0 }}
@@ -33,22 +41,31 @@ function MobileSidebar({ isOpen, openMenu, closeMenu }) {
             className="w-full h-full flex flex-col justify-between pl-4"
           >
             <div
-              onClick={closeMenu}
+              onClick={closeSidebarMenu}
               className="absolute top-4 -right-4 border-2 border-white text-white text-2xl p-1 rounded-full cursor-pointer"
             >
               <AiOutlineLeft />
             </div>
             <motion.div className={`flex flex-col w-full pt-20   gap-y-8`}>
-              <SidebarLinks isOpen={isOpen} title={"Profile"} href="/profile">
+              <SidebarLinks
+                sidebarMenuIsOpen={sidebarMenuIsOpen}
+                title={"Profile"}
+                href="/profile"
+              >
                 <Image src={session.user.image} layout="fill" />
               </SidebarLinks>
 
-              <SidebarLinks isOpen={isOpen} title={"Home"} gray href="/">
+              <SidebarLinks
+                sidebarMenuIsOpen={sidebarMenuIsOpen}
+                title={"Home"}
+                gray
+                href="/"
+              >
                 <AiOutlineHome className="text-2xl" />
               </SidebarLinks>
 
               <SidebarLinks
-                isOpen={isOpen}
+                sidebarMenuIsOpen={sidebarMenuIsOpen}
                 title={"Search"}
                 gray
                 href="/search"
@@ -56,7 +73,12 @@ function MobileSidebar({ isOpen, openMenu, closeMenu }) {
                 <AiOutlineSearch className="text-2xl" />
               </SidebarLinks>
 
-              <SidebarLinks isOpen={isOpen} title={"My list"} gray href="/list">
+              <SidebarLinks
+                sidebarMenuIsOpen={sidebarMenuIsOpen}
+                title={"My list"}
+                gray
+                href="/list"
+              >
                 <AiOutlineHeart className="text-2xl" />
               </SidebarLinks>
             </motion.div>

@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useSidebarMenuStore } from "store/sidebarMenuStore";
 
-export default function Navbar({ inIndex, openMenu }) {
-  const { scrollYProgress, scrollY } = useScroll();
+export default function Navbar({ inIndex }) {
+  const { scrollY } = useScroll();
+  const openSidebarMenu = useSidebarMenuStore((state) => state.openSidebarMenu);
   const { data: session } = useSession();
   const color = useTransform(
     scrollY,
@@ -25,7 +27,7 @@ export default function Navbar({ inIndex, openMenu }) {
             : "px-4 sm:px-10 justify-between"
         }  items-center w-full z-[100]  `}
       >
-        <div onClick={openMenu} className="text-white sm:hidden">
+        <div onClick={openSidebarMenu} className="text-white sm:hidden">
           <GiHamburgerMenu className="text-3xl" />
         </div>
 
@@ -37,6 +39,7 @@ export default function Navbar({ inIndex, openMenu }) {
               height={200}
               layout="responsive"
               objectFit="contain"
+              priority
             />
           </div>
         </Link>
