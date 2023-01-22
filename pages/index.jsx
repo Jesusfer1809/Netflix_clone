@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
-import Row from "../components/Row";
+import dynamic from "next/dynamic";
+
+const Row = dynamic(() => import("../components/Row"));
+const Modal = dynamic(() => import("../components/Modal"));
 
 import { requests } from "../helpers/requests";
 
@@ -13,7 +16,6 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
 
 import NoPlan from "components/NoPlan";
-import Modal from "components/Modal";
 import SideBar from "components/SideBar";
 import MobileSidebar from "components/MobileSidebar";
 import { useWindowSize } from "hooks/useWindowSize";

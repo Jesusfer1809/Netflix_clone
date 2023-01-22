@@ -33,9 +33,9 @@ export default function Row({ title, fetchURL }) {
         {title}
       </h2>
 
-      {isLoading ? (
-        <div>Loading....</div>
-      ) : (
+      {isLoading ? <div>Loading....</div> : null}
+
+      {movies ? (
         <Slider {...settings}>
           {movies?.map(
             (movie) =>
@@ -49,7 +49,7 @@ export default function Row({ title, fetchURL }) {
               )
           )}
         </Slider>
-      )}
+      ) : null}
     </div>
   );
 }
