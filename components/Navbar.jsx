@@ -37,7 +37,7 @@ export default function Navbar({ inIndex }) {
         ) : null}
 
         <Link href="/">
-          <div className="relative w-24 sm:w-28 md:w-32 2xl:w-44 cursor-pointer">
+          <div className="relative w-24 h-20 sm:w-28 md:w-32 2xl:w-44 cursor-pointer">
             <Image
               src="/logo.png"
               width={300}

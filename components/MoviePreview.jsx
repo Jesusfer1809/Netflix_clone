@@ -32,7 +32,9 @@ function MoviePreview({ movie }) {
           <Image
             src={`${baseURL}${movie.poster_path}`}
             alt={movie.title || movie.name}
-            layout="fill"
+            width="288px"
+            height="288px"
+            layout="intrinsic"
             objectFit="contain"
           />
         </div>
@@ -65,7 +67,9 @@ function MoviePreview({ movie }) {
                   src={`${baseURL}${movie.backdrop_path}`}
                   alt={movie.name || movie.title}
                   objectFit="contain"
-                  layout="fill"
+                  layout="intrinsic"
+                  width="384px"
+                  height="216px"
                 />
               </motion.div>
               <motion.div
@@ -100,7 +104,9 @@ function MoviePreview({ movie }) {
           src={`${baseURL}${movie.poster_path}`}
           alt={movie.name || movie.title}
           objectFit="contain"
-          layout="fill"
+          width="288px"
+          height="288px"
+          layout="intrinsic"
         />
       </motion.div>
     );

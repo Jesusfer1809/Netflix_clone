@@ -1,15 +1,18 @@
 import React from "react";
 
-import Slider from "react-slick";
+const Slider = dynamic(() => import("react-slick"), {
+  ssr: false,
+});
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { getSettings } from "../utils/slickBreakpoints";
 
 import MoviePreview from "./MoviePreview.jsx";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRowMovies } from "utils/fetchFunctions";
+import dynamic from "next/dynamic";
 
 export default function Row({ title, fetchURL }) {
   const settings = getSettings(true);

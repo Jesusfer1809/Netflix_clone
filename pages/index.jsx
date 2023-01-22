@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
 import dynamic from "next/dynamic";
 
-const Row = dynamic(() => import("../components/Row"));
-const Modal = dynamic(() => import("../components/Modal"));
+const Row = dynamic(() => import("../components/Row"), {
+  ssr: false,
+});
+const Modal = dynamic(() => import("../components/Modal"), {
+  ssr: false,
+});
 
 import { requests } from "../helpers/requests";
 
@@ -38,7 +42,7 @@ const Home = () => {
   if (session && session.user.planStatus === "Plan") {
     return (
       <div
-        className={`font-lato relative pb-8 bg-opacity-100 bg-neutral-900 overflow-hidden `}
+        className={`font-lato relative pb-8 bg-opacity-100 bg-neutral-900 overflow-hidden  `}
       >
         <Head>
           <title>Netflix Clone</title>
