@@ -1,7 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { requests } from "../helpers/requests";
-import axios from "axios";
 
 import { BsFillPlayFill } from "react-icons/bs";
 
